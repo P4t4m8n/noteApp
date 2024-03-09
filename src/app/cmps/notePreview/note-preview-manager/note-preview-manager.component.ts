@@ -4,11 +4,11 @@ import { TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 
 @Component({
-  selector: 'note-manager-details',
-  templateUrl: './note-manager-details.component.html',
-  styleUrl: './note-manager-details.component.scss'
+  selector: 'note-preview-manager',
+  templateUrl: './note-preview-manager.component.html',
+  styleUrl: './note-preview-manager.component.scss'
 })
-export class NoteManagerDetails implements AfterViewInit {
+export class NotePreviewManager {
 
   @Input() note!: NoteModel
   @ViewChild('noteContainer', { read: ViewContainerRef }) notesContainerRef!: ViewContainerRef
@@ -30,5 +30,4 @@ export class NoteManagerDetails implements AfterViewInit {
   setType() {
     this.type = this.note.type
   }
-
 }
