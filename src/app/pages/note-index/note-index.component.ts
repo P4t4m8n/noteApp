@@ -1,10 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { NoteService } from '../../services/note.service';
+import { Note } from '../../models/note.model';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'note-index',
   templateUrl: './note-index.component.html',
   styleUrl: './note-index.component.scss'
 })
-export class NoteIndexComponent {
+export class NoteIndex implements OnInit {
+
+  noteService = inject(NoteService)
+  notes$: Observable<Note[]> = this.noteService.notes$
+  notes: Note[] = []
+
+  ngOnInit(): void {
+    this.notes$.subscribe(notes => {
+      this.notes = notes
+      console.log("notes:", this.notes)
+      
+    })
+  }
+
 
 }

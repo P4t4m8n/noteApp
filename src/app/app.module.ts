@@ -2,33 +2,35 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app-root/app.component';
-import { NoteIndexComponent } from './pages/note-index/note-index.component';
+import { App } from './app-root/app.component';
+import { NoteIndex } from './pages/note-index/note-index.component';
 import { NoteListComponent } from './cmps/note-list/note-list.component';
-import { NotePreviewComponent } from './cmps/note-preview/note-preview.component';
 import { NoteFilterComponent } from './cmps/note-filter/note-filter.component';
 import { NoteEditComponent } from './pages/note-edit/note-edit.component';
 import { NoteDetailsComponent } from './pages/note-details/note-details.component';
-import { EditManagerComponent } from './cmps/noteEdit/edit-manager/edit-manager.component';
 import { EditNoteTxtComponent } from './cmps/noteEdit/edit-note-txt/edit-note-txt.component';
+import { NoteManagerEditComponent } from './cmps/noteEdit/note-manager-edit/note-manager-edit.component';
+import { NoteManagerDetails } from './cmps/noteDetails/note-manager-details/note-manager-details.component';
+import { NoteText } from './cmps/noteDetails/note-text/note-text.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NoteIndexComponent,
+    App,
+    NoteIndex,
     NoteListComponent,
-    NotePreviewComponent,
     NoteFilterComponent,
     NoteEditComponent,
     NoteDetailsComponent,
-    EditManagerComponent,
-    EditNoteTxtComponent
+    EditNoteTxtComponent,
+    NoteManagerEditComponent,
+    NoteManagerDetails,
+    NoteText
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [App]
 })
 export class AppModule { }
