@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NoteService } from '../../services/note.service';
-import { Note } from '../../models/note.model';
+import { NoteModel } from '../../models/note.model';
 import { Observable, tap } from 'rxjs';
 
 @Component({
@@ -11,8 +11,8 @@ import { Observable, tap } from 'rxjs';
 export class NoteIndex implements OnInit {
 
   noteService = inject(NoteService)
-  notes$: Observable<Note[]> = this.noteService.notes$
-  notes: Note[] = []
+  notes$: Observable<NoteModel[]> = this.noteService.notes$
+  notes: NoteModel[] = []
 
   ngOnInit(): void {
     this.notes$.subscribe(notes => {

@@ -12,6 +12,8 @@ import { EditNoteTxtComponent } from './cmps/noteEdit/edit-note-txt/edit-note-tx
 import { NoteManagerEditComponent } from './cmps/noteEdit/note-manager-edit/note-manager-edit.component';
 import { NoteManagerDetails } from './cmps/noteDetails/note-manager-details/note-manager-details.component';
 import { NoteText } from './cmps/noteDetails/note-text/note-text.component';
+import { AppHeaderComponent } from './cmps/app-header/app-header.component';
+import { AppNavComponent } from './cmps/app-nav/app-nav.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NoteText } from './cmps/noteDetails/note-text/note-text.component';
     EditNoteTxtComponent,
     NoteManagerEditComponent,
     NoteManagerDetails,
-    NoteText
+    NoteText,
+    AppHeaderComponent,
+    AppNavComponent
   ],
   imports: [
     BrowserModule,

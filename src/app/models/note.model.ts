@@ -1,9 +1,9 @@
-export interface Note {
+export interface NoteModel {
     _id: string
     createdAt: number
     type: string
 }
 
-export interface TextNote extends Note {
+export interface TextNoteModel extends NoteModel {
     txt: string
 }

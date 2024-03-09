@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Note } from '../../models/note.model';
+import { NoteModel } from '../../models/note.model';
 
 @Component({
   selector: 'note-list',
@@ -9,7 +9,7 @@ import { Note } from '../../models/note.model';
 export class NoteListComponent implements OnInit {
 
 
-  @Input() notes: Note[] | null = null
+  @Input() notes: NoteModel[] | null = null
   ngOnInit(): void {
     console.log("notes:", this.notes)
 

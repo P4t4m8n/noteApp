@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Note } from '../../../models/note.model';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { NoteModel, TextNoteModel } from '../../../models/note.model';
 import { TXT } from '../../../services/note.service';
 import { NoteText } from '../note-text/note-text.component';
 
@@ -8,24 +8,23 @@ import { NoteText } from '../note-text/note-text.component';
   templateUrl: './note-manager-details.component.html',
   styleUrl: './note-manager-details.component.scss'
 })
-export class NoteManagerDetails implements OnInit {
+export class NoteManagerDetails implements AfterViewInit {
 
-  @Input() note!: Note
+  @Input() note!: NoteModel
   @ViewChild('noteContainer', { read: ViewContainerRef }) notesContainerRef!: ViewContainerRef
+  cdr = inject(ChangeDetectorRef)
   type: string = TXT
 
-  ngOnInit(): void {
-    this.loadComponent()
 
+  ngAfterViewInit(): void {
+    this.loadComponent()
+    this.cdr.detectChanges()
   }
 
   loadComponent() {
     this.notesContainerRef.clear()
-    // const componentRef = this.type === TXT ?
     const componentRef = this.notesContainerRef.createComponent(NoteText)
-    // this.notesContainerRef.createComponent(BarChartComponent)
-
-    componentRef.instance.note = this.note
+    componentRef.instance.note = this.note as TextNoteModel
   }
 
   setType() {
