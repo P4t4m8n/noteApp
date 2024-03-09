@@ -1,0 +1,5 @@
+:host {
+    grid-area: 2/2/-1/-1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 1fr);
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { AppRoutingModule } from './app-routing.module';
 import { App } from './app-root/app.component';
@@ -12,7 +13,6 @@ import { AppHeader } from './cmps/app-header/app-header.component';
 import { AppNav } from './cmps/app-nav/app-nav.component';
 import { NotePreviewManager } from './cmps/notePreview/note-preview-manager/note-preview-manager.component';
 import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-manager.component';
-import { NoteEditText } from './cmps/noteEdit/note-edit-text/note-edit-text.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +25,19 @@ import { NoteEditText } from './cmps/noteEdit/note-edit-text/note-edit-text.comp
     AppNav,
     NotePreviewManager,
     NoteEditManager,
-    NoteEditText
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    
+    
+    
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [App]
 })
 export class AppModule { }

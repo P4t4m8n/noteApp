@@ -17,7 +17,6 @@ export class NoteIndex implements OnInit {
   ngOnInit(): void {
     this.notes$.subscribe(notes => {
       this.notes = notes
-      console.log("notes:", this.notes)
       
     })
   }

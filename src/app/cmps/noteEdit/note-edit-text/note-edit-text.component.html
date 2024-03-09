@@ -1,1 +1,11 @@
-<p>note-edit-text works!</p>
+<form (submit)="save($event)">
+  <mat-form-field>
+    <mat-label>Text</mat-label>
+    <input matInput [(ngModel)]="note.txt" [ngModelOptions]="{standalone: true}" (cdkAutofill)="txtAutoFilled = $event.isAutofilled">
+    @if (txtAutoFilled) {
+    <mat-hint>Autofilled!</mat-hint>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button>Submit</button>
+</form>

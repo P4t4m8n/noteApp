@@ -11,7 +11,6 @@ export class NoteList implements OnInit {
 
   @Input() notes: NoteModel[] | null = null
   ngOnInit(): void {
-    console.log("notes:", this.notes)
 
   }
 

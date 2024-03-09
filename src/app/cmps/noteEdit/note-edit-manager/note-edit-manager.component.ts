@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
-import { TXT } from '../../../services/note.service';
+import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subject, map } from 'rxjs';
+import { Subject, map, takeUntil } from 'rxjs';
+import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 
 @Component({
   selector: 'note-edit-manager',
@@ -15,23 +16,20 @@ export class NoteEditManager implements OnInit {
 
   private router = inject(Router)
   private route = inject(ActivatedRoute)
-  private fb = inject(FormBuilder)
   elRef = inject(ElementRef)
+  noteService = inject(NoteService)
   isInitialized = false
 
   destroySubject$ = new Subject()
-  form!: FormGroup
   note: Partial<TextNoteModel> | null = null
 
-  // @ViewChild('noteContainer', { read: ViewContainerRef }) notesContainerRef!: ViewContainerRef
-  // cdr = inject(ChangeDetectorRef)
+  @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
+  cdr = inject(ChangeDetectorRef)
+
   type: string = TXT
 
   constructor() {
-    this.form = this.fb.group({
-      txt: ['', [], []],
 
-    })
   }
 
   ngOnInit(): void {
@@ -43,26 +41,33 @@ export class NoteEditManager implements OnInit {
         this.note = note
       })
 
-    this.form = this.fb.group({
-      txt: [this.note?.txt]
-    })
-
     setTimeout(() => {
       this.isInitialized = true;
     }, 0)
   }
 
 
-  // ngAfterViewInit(): void {
-  //   this.loadComponent()
-  //   this.cdr.detectChanges()
-  // }
+  ngAfterViewInit(): void {
+    this.loadComponent()
+    this.cdr.detectChanges()
+  }
 
-  // loadComponent() {
-  //   this.notesContainerRef.clear()
-  //   const componentRef = this.notesContainerRef.createComponent(NoteText)
-  //   componentRef.instance.note = this.note as TextNoteModel
-  // }
+  saveNote(note: NoteModel) {
+    console.log("note:", note)
+    this.noteService.save(note)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({ next: this.onBack, error: err => console.log('err', err) })
+  }
+
+  loadComponent() {
+    this.noteEditContainerRef.clear()
+    const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
+    componentRef.instance.note = this.note as TextNoteModel
+    componentRef.instance.saveEvent.subscribe((note: TextNoteModel) => {
+      this.saveNote(note)
+    })
+
+  }
 
   onBack = () => {
     this.router.navigateByUrl('/note')

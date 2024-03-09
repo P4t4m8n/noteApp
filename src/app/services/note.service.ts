@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../models/note.model';
 import { storageService } from './async-storage.service';
-import { BehaviorSubject, catchError, from, retry, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, from, retry, tap, throwError } from 'rxjs';
 
 const NOTE_DB = 'note'
 export const TODO = 'todo'
@@ -36,7 +36,7 @@ export class NoteService {
     return storageService.get<NoteModel>(NOTE_DB, noteID)
   }
 
-  save(note: Partial<NoteModel> | NoteModel): Promise<NoteModel> {
+  save(note: Partial<NoteModel> | NoteModel): Observable<NoteModel> {
 
     return note._id ? this.#edit(note as NoteModel) : this.#add(note)
   }
@@ -47,12 +47,29 @@ export class NoteService {
     }
   }
 
-  #add(note: Partial<NoteModel>): Promise<NoteModel> {
-    return storageService.post(NOTE_DB, note as NoteModel)
+  #add(note: Partial<NoteModel>): Observable<NoteModel> {
+    return from(storageService.post(NOTE_DB, note as NoteModel))
+      .pipe(
+        tap((newNote: NoteModel) => {
+          const notes = this.#_notes$.value
+          this.#_notes$.next([...notes, newNote])
+        }),
+        retry(1),
+        catchError(this.#handleError))
   }
 
-  #edit(note: NoteModel): Promise<NoteModel> {
-    return storageService.put(NOTE_DB, note)
+  #edit(note: NoteModel): Observable<NoteModel> {
+    return from(storageService.put(NOTE_DB, note))
+      .pipe(
+        tap(updateNote => {
+          const notes = this.#_notes$.value
+          const idx = notes.findIndex(_note => _note._id === updateNote._id)
+          notes.splice(idx, 1, updateNote)
+          return updateNote
+        }),
+        retry(1),
+        catchError(this.#handleError)
+      )
   }
 
   #handleError(err: any) {
@@ -62,7 +79,7 @@ export class NoteService {
 
   #createNots(): NoteModel[] {
     let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
-      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(),type:TXT }))
+      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT }))
     return demoNotes
   }
 

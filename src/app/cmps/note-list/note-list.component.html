@@ -1,3 +1,4 @@
 <ul class="note-list">
+  <li><a [routerLink]="['/note/edit']">Add</a></li>
   <note-preview-manager *ngFor="let note of notes" [note]="note"></note-preview-manager>
 </ul>
