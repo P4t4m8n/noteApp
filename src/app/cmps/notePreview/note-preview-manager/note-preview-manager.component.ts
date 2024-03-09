@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
 import { TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';

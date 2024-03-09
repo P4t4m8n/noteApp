@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './note-filter.component.html',
   styleUrl: './note-filter.component.scss'
 })
-export class NoteFilterComponent {
+export class NoteFilter {
 
 }

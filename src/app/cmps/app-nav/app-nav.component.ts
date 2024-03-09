@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './app-nav.component.html',
   styleUrl: './app-nav.component.scss'
 })
-export class AppNavComponent {
+export class AppNav {
 
 }

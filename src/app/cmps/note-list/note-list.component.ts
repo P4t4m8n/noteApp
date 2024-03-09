@@ -6,7 +6,7 @@ import { NoteModel } from '../../models/note.model';
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.scss'
 })
-export class NoteListComponent implements OnInit {
+export class NoteList implements OnInit {
 
 
   @Input() notes: NoteModel[] | null = null

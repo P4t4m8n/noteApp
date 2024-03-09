@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditNoteTxtComponent } from './edit-note-txt.component';
+import { NoteEditManagerComponent } from './note-edit-manager.component';
 
-describe('EditNoteTxtComponent', () => {
-  let component: EditNoteTxtComponent;
-  let fixture: ComponentFixture<EditNoteTxtComponent>;
+describe('NoteEditManagerComponent', () => {
+  let component: NoteEditManagerComponent;
+  let fixture: ComponentFixture<NoteEditManagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EditNoteTxtComponent]
+      declarations: [NoteEditManagerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(EditNoteTxtComponent);
+    fixture = TestBed.createComponent(NoteEditManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
