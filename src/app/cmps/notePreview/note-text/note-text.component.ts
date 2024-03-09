@@ -13,6 +13,5 @@ export class NoteText implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.note)
   }
 }
