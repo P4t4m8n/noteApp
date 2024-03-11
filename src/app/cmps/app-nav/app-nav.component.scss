@@ -1,3 +1,38 @@
 :host {
+
     grid-area: 2/1/-1/2;
+
+    width: 100%;
+
+    ul {
+
+        li {
+            padding-left: 12px;
+            display: flex;
+            box-sizing: border-box;
+            border-radius: 0 25px 25px 0;
+            height: 3rem;
+            align-items: center;
+            border: 1px transparent;
+            gap: 2em;
+            font-weight: 500;
+            color: rgb(32, 33, 36);
+            fill: rgb(95, 99, 104);
+
+            .svg-con {
+                border-radius: 50%;
+                width: 1.5rem;
+
+            }
+
+            &:hover {
+                background-color: rgb(241, 243, 244);
+            }
+
+            &:focus {
+                background-color: #feefc3;
+                fill: rgb(32, 33, 36);
+            }
+        }
+    }
 }
