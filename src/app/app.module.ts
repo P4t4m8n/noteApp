@@ -19,6 +19,10 @@ import { EditLabelsSvg } from './svgs/edit-labels/edit-labels.component';
 import { ArchiveSvg } from './svgs/archive/archive.component';
 import { TrashSvg } from './svgs/trash/trash.component';
 import { LightBulbSvg } from './svgs/light-bulb/light-bulb.component';
+import { ColorSvg } from './svgs/color-svg/color-svg.component';
+import { UploadImageSvg } from './svgs/upload-image-svg/upload-image-svg.component';
+import { DotsSvg } from './svgs/dots-svg/dots-svg.component';
+import { Buttons } from './cmps/buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -37,15 +41,15 @@ import { LightBulbSvg } from './svgs/light-bulb/light-bulb.component';
     EditLabelsSvg,
     ArchiveSvg,
     TrashSvg,
+    ColorSvg,
+    UploadImageSvg,
+    DotsSvg,
+    Buttons,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-
-
-
-
   ],
   providers: [
     provideAnimationsAsync()

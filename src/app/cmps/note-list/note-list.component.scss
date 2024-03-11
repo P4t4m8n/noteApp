@@ -1,6 +1,8 @@
 :host {
     ul {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 200px));
+        columns: 238px auto;
+        width: 100%;
+        column-gap: 1em;
+
     }
 }

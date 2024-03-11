@@ -1,1 +1,6 @@
-<ng-template #noteContainer></ng-template>
+<li class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)">
+  <a [routerLink]="['/note/edit',note._id]">
+    <ng-template #noteContainer></ng-template>
+    <buttons #btns></buttons>
+  </a>
+</li>

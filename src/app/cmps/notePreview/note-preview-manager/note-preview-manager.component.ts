@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, injec
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
 import { TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
+import { Buttons } from '../../buttons/buttons.component';
 
 @Component({
   selector: 'note-preview-manager',
@@ -12,6 +13,8 @@ export class NotePreviewManager {
 
   @Input() note!: NoteModel
   @ViewChild('noteContainer', { read: ViewContainerRef }) notesContainerRef!: ViewContainerRef
+  @ViewChild('btns') noteBtns!: Buttons
+
   cdr = inject(ChangeDetectorRef)
   type: string = TXT
 
@@ -25,6 +28,10 @@ export class NotePreviewManager {
     this.notesContainerRef.clear()
     const componentRef = this.notesContainerRef.createComponent(NoteText)
     componentRef.instance.note = this.note as TextNoteModel
+  }
+
+  toggleBtns(isHovered: boolean) {
+    this.noteBtns.isHovered = isHovered
   }
 
   setType() {
