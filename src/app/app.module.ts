@@ -13,6 +13,12 @@ import { AppHeader } from './cmps/app-header/app-header.component';
 import { AppNav } from './cmps/app-nav/app-nav.component';
 import { NotePreviewManager } from './cmps/notePreview/note-preview-manager/note-preview-manager.component';
 import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-manager.component';
+import { EditModal } from './cmps/noteEdit/edit-modal/edit-modal.component';
+import { ReminderSvg } from './svgs/reminder/reminder.component';
+import { EditLabelsSvg } from './svgs/edit-labels/edit-labels.component';
+import { ArchiveSvg } from './svgs/archive/archive.component';
+import { TrashSvg } from './svgs/trash/trash.component';
+import { LightBulbSvg } from './svgs/light-bulb/light-bulb.component';
 
 @NgModule({
   declarations: [
@@ -25,15 +31,21 @@ import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-man
     AppNav,
     NotePreviewManager,
     NoteEditManager,
+    EditModal,
+    LightBulbSvg,
+    ReminderSvg,
+    EditLabelsSvg,
+    ArchiveSvg,
+    TrashSvg,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    
-    
-    
-    
+
+
+
+
   ],
   providers: [
     provideAnimationsAsync()

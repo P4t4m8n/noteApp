@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
 import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
@@ -8,9 +8,12 @@ import { Subject, map, takeUntil } from 'rxjs';
 import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 
 @Component({
+  // standalone:true,
   selector: 'note-edit-manager',
   templateUrl: './note-edit-manager.component.html',
-  styleUrl: './note-edit-manager.component.scss'
+  styleUrl: './note-edit-manager.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class NoteEditManager implements OnInit {
 
@@ -19,9 +22,10 @@ export class NoteEditManager implements OnInit {
   elRef = inject(ElementRef)
   noteService = inject(NoteService)
   isInitialized = false
+  isModal = false
 
   destroySubject$ = new Subject()
-  note: Partial<TextNoteModel> | null = null
+  note: Partial<TextNoteModel> = this.noteService.getEmptyNote()
 
   @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
   cdr = inject(ChangeDetectorRef)
@@ -30,6 +34,7 @@ export class NoteEditManager implements OnInit {
 
   constructor() {
 
+    console.log('aaa')
   }
 
   ngOnInit(): void {
@@ -38,7 +43,11 @@ export class NoteEditManager implements OnInit {
         return data['note']
       }))
       .subscribe(note => {
-        this.note = note
+        console.log("note:", note)
+        if (note) {
+          this.note = note
+          this.isModal = true
+        }
       })
 
     setTimeout(() => {
@@ -52,12 +61,7 @@ export class NoteEditManager implements OnInit {
     this.cdr.detectChanges()
   }
 
-  saveNote(note: NoteModel) {
-    console.log("note:", note)
-    this.noteService.save(note)
-      .pipe(takeUntil(this.destroySubject$))
-      .subscribe({ next: this.onBack, error: err => console.log('err', err) })
-  }
+
 
   loadComponent() {
     this.noteEditContainerRef.clear()
@@ -69,13 +73,21 @@ export class NoteEditManager implements OnInit {
 
   }
 
+  saveNote(note: NoteModel) {
+    console.log("note:", note)
+    this.noteService.save(note)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({ next: this.onBack, error: err => console.log('err', err) })
+  }
+
   onBack = () => {
     this.router.navigateByUrl('/note')
   }
 
+
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent) {
-    if (!this.isInitialized) return
+    if (!this.isInitialized || !this.isModal) return
     if (!this.elRef.nativeElement.contains(event.target)) {
       this.onBack()
     }

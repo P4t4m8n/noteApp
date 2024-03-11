@@ -9,6 +9,6 @@ export const noteResolver: ResolveFn<NoteModel | Partial<NoteModel>> = (route, s
   console.log("noteId:", noteId)
 
   const noteService = inject(NoteService)
-  if (!noteId) return noteService.getEmptyNote()
+  // if (!noteId) return noteService.getEmptyNote()
   return noteService.get(noteId)
 };
