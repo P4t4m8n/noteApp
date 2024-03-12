@@ -43,8 +43,7 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
     if (eventTarget instanceof HTMLTextAreaElement) {
       const textarea = eventTarget
       textarea.style.height = 'fit-content'
-      console.log("textarea:", textarea.scrollHeight)
-      console.log("textarea.style.height:", textarea.style.height)
+   
       textarea.style.height = `${textarea.scrollHeight}px`
     }
   }

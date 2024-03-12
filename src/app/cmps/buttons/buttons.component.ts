@@ -13,15 +13,9 @@ export class Buttons {
   elRef = inject(ElementRef)
 
 
-  onChangeColor(ev: Event) {
-    console.log("ev:", ev)
-    ev.stopImmediatePropagation()
-    ev.preventDefault()
-    ev.stopPropagation()
-
-    const target = ev.target as HTMLInputElement
-    this.setColor.emit(target.value as string)
-
+  onChangeColor(color: string) {
+    console.log("color:", color)
+    this.setColor.emit(color)
   }
 
   onClose() {

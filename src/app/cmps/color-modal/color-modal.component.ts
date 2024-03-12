@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
 
 @Component({
   selector: 'color-modal',
@@ -6,7 +6,7 @@ import { Component, ElementRef, HostListener, inject } from '@angular/core';
   styleUrl: './color-modal.component.scss'
 })
 export class ColorModalComponent {
-
+  @Output() setColor = new EventEmitter<string>()
   colors: string[] = [
     '#ffffff', '#f28b82', '#fbbc04', '#fff475',
     '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa',
@@ -18,6 +18,7 @@ export class ColorModalComponent {
 
   selectColor(color: string): void {
     console.log("color:", color)
+    this.setColor.emit(color)
     this.handleModal(false)
 
   }

@@ -1,10 +1,12 @@
+
+
 .btns {
+    container-type: inline-size;
     display: flex;
     justify-content: space-around;
     padding-bottom: 12px;
 
-    button,
-    label {
+    button {
         position: relative;
         opacity: 0;
         transition: opacity .3s ease-in-out;
@@ -12,7 +14,7 @@
         border: none;
         width: 1.1rem;
         height: 1.1rem;
-        fill: rgb(52, 54, 57);
+        fill: rgb(32, 33, 36);
 
         &:hover {
             cursor: pointer;
@@ -23,8 +25,13 @@
 
 .hover {
 
-    button,
-    label {
+    button {
         opacity: 1;
+    }
+}
+
+@container (max-width: 330px) {
+    .hide-on-small {
+        display: none;
     }
 }

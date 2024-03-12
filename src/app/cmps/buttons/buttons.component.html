@@ -2,9 +2,7 @@
   <button>
     <reminder-svg></reminder-svg>
   </button>
-
-  <color-modal></color-modal>
-
+  <color-modal (setColor)="onChangeColor($event)" [ngClass]="{'hover':isHovered}"></color-modal>
   <button>
     <upload-image-svg></upload-image-svg>
   </button>
@@ -14,11 +12,11 @@
   <button>
     <dots-svg></dots-svg>
   </button>
-  <button>
+  <button class="hide-on-small">
     <undo-svg></undo-svg>
   </button>
-  <button>
-    <undo-svg style="rotate: 180%;"></undo-svg>
+  <button class="hide-on-small">
+    <undo-svg style="transform: scaleX(-1);"></undo-svg>
   </button>
-  <button (click)="onClose()">Close</button>
+  <button class="hide-on-small" (click)="onClose()">Close</button>
 </div>

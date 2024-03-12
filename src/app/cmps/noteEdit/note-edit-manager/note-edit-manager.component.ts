@@ -70,6 +70,7 @@ export class NoteEditManager implements OnInit {
   }
 
   setColor(color: string) {
+    console.log("color:", color)
     this.note.bgc = color
     this.saveNote(this.note)
     this.cdr.detectChanges()
@@ -88,29 +89,26 @@ export class NoteEditManager implements OnInit {
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent) {
     const target = event.target as HTMLElement
-    console.log("target:", target)
 
     const viewContainerRef = this.noteEditContainerRef
-    console.log("viewContainerRef:", viewContainerRef)
     const clickedInsideEdit = this.elRef.nativeElement.contains(target)
     const clickedInsideButtons = this.noteBtns['elRef'].nativeElement.contains(target)
-    console.log("clickedInsideEdit:", clickedInsideEdit)
-    console.log("clickedInsideButtons:", clickedInsideButtons)
+
     if (!this.isInitialized || !this.isModal || clickedInsideButtons || clickedInsideEdit) return
 
-    for (let i = 0; i < viewContainerRef.length; i++) {
-      const viewRef = viewContainerRef.get(i)
-      console.log("viewContainerRef:", viewContainerRef)
-      console.log("viewRef:", viewRef)
-      if (viewRef) {
-        // const componentRef = viewRef['_view'].component
-        // if (componentRef && componentRef.location.nativeElement.contains(target)) {
-        //   return
-        // }
-        // if (!this.isInitialized || !this.isModal || clickedInsideButtons || viewContainerRef) return
-      }
+    // for (let i = 0; i < viewContainerRef.length; i++) {
+    //   const viewRef = viewContainerRef.get(i)
+    //   console.log("viewContainerRef:", viewContainerRef)
+    //   console.log("viewRef:", viewRef)
+    //   if (viewRef) {
+    //     // const componentRef = viewRef['_view'].component
+    //     // if (componentRef && componentRef.location.nativeElement.contains(target)) {
+    //     //   return
+    //     // }
+    //     // if (!this.isInitialized || !this.isModal || clickedInsideButtons || viewContainerRef) return
+    //   }
 
-    }
+    // }
     this.onBack()
   }
 
