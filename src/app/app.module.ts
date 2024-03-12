@@ -13,7 +13,6 @@ import { AppHeader } from './cmps/app-header/app-header.component';
 import { AppNav } from './cmps/app-nav/app-nav.component';
 import { NotePreviewManager } from './cmps/notePreview/note-preview-manager/note-preview-manager.component';
 import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-manager.component';
-import { EditModal } from './cmps/noteEdit/edit-modal/edit-modal.component';
 import { ReminderSvg } from './svgs/reminder/reminder.component';
 import { EditLabelsSvg } from './svgs/edit-labels/edit-labels.component';
 import { ArchiveSvg } from './svgs/archive/archive.component';
@@ -23,6 +22,8 @@ import { ColorSvg } from './svgs/color-svg/color-svg.component';
 import { UploadImageSvg } from './svgs/upload-image-svg/upload-image-svg.component';
 import { DotsSvg } from './svgs/dots-svg/dots-svg.component';
 import { Buttons } from './cmps/buttons/buttons.component';
+import { ColorModalComponent } from './cmps/color-modal/color-modal.component';
+import { UndoSvg } from './svgs/undo-svg/undo-svg.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,6 @@ import { Buttons } from './cmps/buttons/buttons.component';
     AppNav,
     NotePreviewManager,
     NoteEditManager,
-    EditModal,
     LightBulbSvg,
     ReminderSvg,
     EditLabelsSvg,
@@ -45,6 +45,8 @@ import { Buttons } from './cmps/buttons/buttons.component';
     UploadImageSvg,
     DotsSvg,
     Buttons,
+    ColorModalComponent,
+    UndoSvg,
   ],
   imports: [
     BrowserModule,
