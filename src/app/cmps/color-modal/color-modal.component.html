@@ -1,0 +1,11 @@
+<button (click)="handleModal(true)">
+  <color-svg></color-svg>
+</button>
+
+<div *ngIf="isOpen" class="modal-background" (click)="handleModal(false)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="color-options">
+      <div *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" (click)="selectColor(color)"></div>
+    </div>
+  </div>
+</div>
