@@ -25,6 +25,7 @@ import { Buttons } from './cmps/buttons/buttons.component';
 import { ColorModal } from './cmps/color-modal/color-modal.component';
 import { UndoSvg } from './svgs/undo-svg/undo-svg.component';
 import { PinnedSvg } from './svgs/pinned-svg/pinned-svg.component';
+import { PinnedFullSvgComponent } from './svgs/pinned-full-svg/pinned-full-svg.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PinnedSvg } from './svgs/pinned-svg/pinned-svg.component';
     ColorModal,
     UndoSvg,
     PinnedSvg,
+    PinnedFullSvgComponent,
   ],
   imports: [
     BrowserModule,

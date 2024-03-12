@@ -15,7 +15,6 @@ export class ColorModal {
   elRef = inject(ElementRef)
   isOpen: boolean = false
 
-
   selectColor(color: string): void {
     console.log("color:", color)
     this.setColor.emit(color)

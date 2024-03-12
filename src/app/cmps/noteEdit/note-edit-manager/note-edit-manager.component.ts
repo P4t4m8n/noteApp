@@ -75,16 +75,21 @@ export class NoteEditManager implements OnInit {
 
   }
 
-  toggleBtns(isHovered: boolean) {
+  toggleBtns(ev: Event, isHovered: boolean) {
+    ev.preventDefault()
+    ev.stopPropagation()
+    console.log('test')
     this.noteBtns.isHovered = isHovered
   }
 
-  setPinned() {
+  setPinned(ev:Event) {
+    ev.stopPropagation()
     this.note.isPinned = !this.note.isPinned
     this.saveNote(this.note)
   }
 
   setColor(color: string) {
+
     this.note.bgc = color
     this.saveNote(this.note)
     this.cdr.detectChanges()

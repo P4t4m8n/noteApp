@@ -1,7 +1,8 @@
-<button (click)="setPinned()">
-  <pinned-svg [ngClass]="{pinned:note.isPinned}"></pinned-svg>
-</button>
-<li *ngIf="mode==='preview'" class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)" [style.background-color]="note.bgc">
+<li *ngIf="mode==='preview'" class="note-preview" (mouseenter)="toggleBtns($event,true)" (mouseleave)="toggleBtns($event,false)" [style.background-color]="note.bgc">
+  <button [ngClass]="{pinned:note.isPinned}" class="pinned-btn" (click)="setPinned($event)">
+    <pinned-svg *ngIf="!note.isPinned"></pinned-svg>
+    <pinned-full-svg *ngIf="note.isPinned"></pinned-full-svg>
+  </button>
   <a [routerLink]="['/note/edit',note._id]">
     <ng-template #noteEditContainer></ng-template>
   </a>
@@ -9,6 +10,9 @@
 </li>
 
 <section *ngIf="mode!=='preview'" [ngClass]="{modal:isModal,newNote:!isModal}" [style.background-color]="note.bgc">
+  <button (click)="setPinned($event)">
+    <pinned-svg [ngClass]="{pinned:note.isPinned}"></pinned-svg>
+  </button>
   <ng-template #noteEditContainer></ng-template>
   <buttons #btns (setColor)="setColor($event)" (close)="onBack()" (remove)="onRemoveNote(note._id)"></buttons>
 </section>

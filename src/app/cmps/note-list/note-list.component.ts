@@ -13,5 +13,8 @@ export class NoteList implements OnInit {
   ngOnInit(): void {
 
   }
-
+  trackByFn(index: number, note: any) {
+    return note._id
+  
+  }
 }

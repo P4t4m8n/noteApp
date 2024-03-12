@@ -24,13 +24,12 @@
 }
 
 .hover {
-
     button {
         opacity: 1;
     }
 }
 
-@container (max-width: 330px) {
+@container (max-width: 500px) {
     .hide-on-small {
         display: none;
     }
