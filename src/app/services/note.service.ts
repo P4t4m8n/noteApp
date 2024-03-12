@@ -42,6 +42,20 @@ export class NoteService {
     return note._id ? this.#edit(note as NoteModel) : this.#add(note)
   }
 
+  remove(noteId: string) {
+    return from(storageService.remove(NOTE_DB, noteId))
+      .pipe(
+        tap(() => {
+          const notes = this.#_notes$.value
+          const idx = notes.findIndex(note => note._id === noteId)
+          notes.splice(idx, 1)
+          this.#_notes$.next([...notes])
+          return noteId
+        }),
+        retry(1),
+        catchError(this.#handleError))
+  }
+
   getEmptyNote(): Partial<NoteModel> {
     return {
       type: ''

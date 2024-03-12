@@ -9,9 +9,12 @@
   <button>
     <archive-svg></archive-svg>
   </button>
-  <button>
-    <dots-svg></dots-svg>
+  <button (click)="remove.emit()">
+    <trash-svg></trash-svg>
   </button>
+  <!-- <button>
+    <dots-svg></dots-svg>
+  </button> -->
   <button class="hide-on-small">
     <undo-svg></undo-svg>
   </button>

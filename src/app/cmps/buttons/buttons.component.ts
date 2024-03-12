@@ -10,6 +10,7 @@ export class Buttons {
   isHovered = false
   @Output() setColor = new EventEmitter<string>()
   @Output() close = new EventEmitter()
+  @Output() remove = new EventEmitter()
   elRef = inject(ElementRef)
 
 

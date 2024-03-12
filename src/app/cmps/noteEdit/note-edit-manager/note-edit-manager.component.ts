@@ -4,7 +4,7 @@ import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subject, map, takeUntil } from 'rxjs';
+import { Subject, map, take, takeUntil, tap } from 'rxjs';
 import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 import { Buttons } from '../../buttons/buttons.component';
 
@@ -80,6 +80,22 @@ export class NoteEditManager implements OnInit {
     this.noteService.save(note)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({ error: err => console.log('err', err) })
+  }
+
+  onRemoveNote(noteId: string | undefined) {
+    if (!noteId) return
+    this.noteService.remove(noteId)
+      .pipe(
+        tap(() => {
+          this.onBack()
+        }),
+        take(1)
+      )
+      .subscribe({
+        next: noteId => console.log('removed', noteId),
+
+        error: err => console.log('err:', err)
+      })
   }
 
   onBack = () => {

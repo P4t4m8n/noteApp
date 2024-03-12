@@ -2,5 +2,5 @@
   <a [routerLink]="['/note/edit',note._id]">
     <ng-template #noteContainer></ng-template>
   </a>
-  <buttons #btns (setColor)="setColor($event)"></buttons>
+  <buttons #btns (setColor)="setColor($event)" (remove)="onRemoveNote(note._id)"></buttons>
 </li>

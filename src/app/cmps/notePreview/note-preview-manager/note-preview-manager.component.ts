@@ -31,10 +31,15 @@ export class NotePreviewManager {
     componentRef.instance.note = this.note as TextNoteModel
   }
 
+  onRemoveNote(noteId: string) {
+    this.noteService.remove(noteId)
+      .subscribe({
+        next: noteId => console.log('removed', noteId),
+        error: err => console.log('err:', err)
+      })
+  }
+
   setColor(color: string) {
-    console.log("color:", color)
-    console.log(this.note)
-    console.log(this.note)
     this.note.bgc = color
     this.saveNote(this.note)
   }
