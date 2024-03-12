@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, inject } from '@angular/core';
 
 @Component({
   selector: 'buttons',
@@ -8,10 +8,26 @@ import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 export class Buttons {
 
   isHovered = false
-  cdr = inject(ChangeDetectorRef)
+  @Output() setColor = new EventEmitter<string>()
+  @Output() close = new EventEmitter()
+  elRef = inject(ElementRef)
 
-  // setHoverState(isHovered: boolean) {
-  //   this.isHovered = isHovered;
-  //   this.cdr.detectChanges()
-  // }
+
+  onChangeColor(ev: Event) {
+    console.log("ev:", ev)
+    ev.stopImmediatePropagation()
+    ev.preventDefault()
+    ev.stopPropagation()
+
+    const target = ev.target as HTMLInputElement
+    this.setColor.emit(target.value as string)
+
+  }
+
+  onClose() {
+    this.close.emit()
+  }
+
+
+
 }

@@ -3,8 +3,9 @@
     justify-content: space-around;
     padding-bottom: 12px;
 
-
-    button {
+    button,
+    label {
+        position: relative;
         opacity: 0;
         transition: opacity .3s ease-in-out;
         background: inherit;
@@ -13,13 +14,17 @@
         height: 1.1rem;
         fill: rgb(52, 54, 57);
 
+        &:hover {
+            cursor: pointer;
+        }
     }
 
 }
 
 .hover {
-    button {
 
+    button,
+    label {
         opacity: 1;
     }
 }
