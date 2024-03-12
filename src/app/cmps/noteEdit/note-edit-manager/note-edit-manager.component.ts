@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, map, takeUntil } from 'rxjs';
 import { NoteEditText } from '../note-edit-text/note-edit-text.component';
+import { Buttons } from '../../buttons/buttons.component';
 
 @Component({
   // standalone:true,
@@ -21,21 +22,16 @@ export class NoteEditManager implements OnInit {
   private route = inject(ActivatedRoute)
   elRef = inject(ElementRef)
   noteService = inject(NoteService)
-  isInitialized = false
-  isModal = false
-
-  destroySubject$ = new Subject()
-  note: Partial<TextNoteModel> = this.noteService.getEmptyNote()
-
-  @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
   cdr = inject(ChangeDetectorRef)
 
+  @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
+  @ViewChild('btns') noteBtns!: Buttons
+
+  isInitialized = false
+  isModal = false
+  destroySubject$ = new Subject()
+  note: Partial<TextNoteModel> = this.noteService.getEmptyNote()
   type: string = TXT
-
-  constructor() {
-
-    console.log('aaa')
-  }
 
   ngOnInit(): void {
     this.route.data
@@ -55,42 +51,67 @@ export class NoteEditManager implements OnInit {
     }, 0)
   }
 
-
   ngAfterViewInit(): void {
     this.loadComponent()
     this.cdr.detectChanges()
+    this.noteBtns.isHovered = true
   }
-
-
 
   loadComponent() {
     this.noteEditContainerRef.clear()
     const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
     componentRef.instance.note = this.note as TextNoteModel
+    componentRef.instance.note = this.note as TextNoteModel
     componentRef.instance.saveEvent.subscribe((note: TextNoteModel) => {
       this.saveNote(note)
+
     })
 
   }
 
-  saveNote(note: NoteModel) {
-    console.log("note:", note)
+  setColor(color: string) {
+    this.note.bgc = color
+    this.saveNote(this.note)
+    this.cdr.detectChanges()
+  }
+
+  saveNote(note: NoteModel | Partial<NoteModel>) {
     this.noteService.save(note)
       .pipe(takeUntil(this.destroySubject$))
-      .subscribe({ next: this.onBack, error: err => console.log('err', err) })
+      .subscribe({ error: err => console.log('err', err) })
   }
 
   onBack = () => {
     this.router.navigateByUrl('/note')
   }
 
-
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent) {
-    if (!this.isInitialized || !this.isModal) return
-    if (!this.elRef.nativeElement.contains(event.target)) {
-      this.onBack()
+    const target = event.target as HTMLElement
+    console.log("target:", target)
+
+    const viewContainerRef = this.noteEditContainerRef
+    console.log("viewContainerRef:", viewContainerRef)
+    const clickedInsideEdit = this.elRef.nativeElement.contains(target)
+    const clickedInsideButtons = this.noteBtns['elRef'].nativeElement.contains(target)
+    console.log("clickedInsideEdit:", clickedInsideEdit)
+    console.log("clickedInsideButtons:", clickedInsideButtons)
+    if (!this.isInitialized || !this.isModal || clickedInsideButtons || clickedInsideEdit) return
+
+    for (let i = 0; i < viewContainerRef.length; i++) {
+      const viewRef = viewContainerRef.get(i)
+      console.log("viewContainerRef:", viewContainerRef)
+      console.log("viewRef:", viewRef)
+      if (viewRef) {
+        // const componentRef = viewRef['_view'].component
+        // if (componentRef && componentRef.location.nativeElement.contains(target)) {
+        //   return
+        // }
+        // if (!this.isInitialized || !this.isModal || clickedInsideButtons || viewContainerRef) return
+      }
+
     }
+    this.onBack()
   }
 
   ngOnDestroy(): void {

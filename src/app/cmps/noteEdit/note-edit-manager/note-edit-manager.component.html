@@ -1,3 +1,4 @@
-<section [ngClass]="{modal:isModal,newNote:!isModal}">
-  <ng-template #noteEditContainer ></ng-template>
+<section [ngClass]="{modal:isModal,newNote:!isModal}" [style.background-color]="note.bgc">
+  <ng-template #noteEditContainer></ng-template>
+  <buttons #btns (setColor)="setColor($event)" (close)="onBack()"></buttons>
 </section>
