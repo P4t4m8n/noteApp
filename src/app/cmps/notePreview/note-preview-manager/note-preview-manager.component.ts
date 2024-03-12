@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
 import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
@@ -7,7 +7,9 @@ import { Buttons } from '../../buttons/buttons.component';
 @Component({
   selector: 'note-preview-manager',
   templateUrl: './note-preview-manager.component.html',
-  styleUrl: './note-preview-manager.component.scss'
+  styleUrl: './note-preview-manager.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class NotePreviewManager {
 

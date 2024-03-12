@@ -6,7 +6,13 @@ html,
 body {
     height: 100%;
     font-family: Roboto, Arial, sans-serif;
-  
+
+}
+
+body:has(.modal) {
+    :not(.modal, .modal *) {
+        pointer-events: none;
+    }
 }
 
 body {

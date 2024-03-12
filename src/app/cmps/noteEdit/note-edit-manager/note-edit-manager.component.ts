@@ -9,7 +9,6 @@ import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 import { Buttons } from '../../buttons/buttons.component';
 
 @Component({
-  // standalone:true,
   selector: 'note-edit-manager',
   templateUrl: './note-edit-manager.component.html',
   styleUrl: './note-edit-manager.component.scss',
