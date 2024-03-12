@@ -1,11 +1,5 @@
-<form (submit)="save($event)">
-  <mat-form-field>
-    <mat-label>Text</mat-label>
-    <input matInput [(ngModel)]="note.txt" [ngModelOptions]="{standalone: true}" (cdkAutofill)="txtAutoFilled = $event.isAutofilled">
-    @if (txtAutoFilled) {
-    <mat-hint>Autofilled!</mat-hint>
-    }
-  </mat-form-field>
+<textarea #textareaRef class="text-area" matInput [(ngModel)]="note.txt" [ngModelOptions]="{standalone: true}"
+ (input)="adjustHeight($event.target )" 
+ (ngModelChange)="onTextChange($event)"></textarea>
 
-  <button mat-raised-button>Submit</button>
-</form>
+ 

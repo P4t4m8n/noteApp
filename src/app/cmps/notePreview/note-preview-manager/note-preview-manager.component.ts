@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../../../models/note.model';
-import { TXT } from '../../../services/note.service';
+import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 import { Buttons } from '../../buttons/buttons.component';
 
@@ -16,6 +16,7 @@ export class NotePreviewManager {
   @ViewChild('btns') noteBtns!: Buttons
 
   cdr = inject(ChangeDetectorRef)
+  noteService = inject(NoteService)
   type: string = TXT
 
 
@@ -28,6 +29,19 @@ export class NotePreviewManager {
     this.notesContainerRef.clear()
     const componentRef = this.notesContainerRef.createComponent(NoteText)
     componentRef.instance.note = this.note as TextNoteModel
+  }
+
+  setColor(color: string) {
+    console.log("color:", color)
+    console.log(this.note)
+    console.log(this.note)
+    this.note.bgc = color
+    this.saveNote(this.note)
+  }
+
+  saveNote(note: NoteModel | Partial<NoteModel>) {
+    this.noteService.save(note)
+
   }
 
   toggleBtns(isHovered: boolean) {

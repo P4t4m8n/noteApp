@@ -1,35 +1,57 @@
-import { Component, EventEmitter, Input, NgZone, Output, ViewChild, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CdkTextareaAutosize, TextFieldModule } from '@angular/cdk/text-field';
-import { take } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, inject } from '@angular/core';
+import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { TextNoteModel } from '../../../models/note.model';
 import { FormsModule } from '@angular/forms';
-
-
 
 @Component({
   selector: 'note-edit-text',
   templateUrl: './note-edit-text.component.html',
   styleUrl: './note-edit-text.component.scss',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, TextFieldModule, MatButtonModule,FormsModule]
+  imports: [FormsModule]
 })
-export class NoteEditText {
+export class NoteEditText implements AfterViewInit, OnDestroy {
 
   @Input() note!: TextNoteModel
   @Output() saveEvent = new EventEmitter()
-  txtAutoFilled!: boolean
+  @ViewChild('textareaRef') textareaRef!: ElementRef<HTMLTextAreaElement>;
 
-  save(ev:Event) {
-    ev.preventDefault()
+  private destroy$ = new Subject<void>()
+  private textChange$ = new Subject<string>()
+
+  elRef = inject(ElementRef)
+
+  ngAfterViewInit() {
+    this.textChange$.pipe(
+      debounceTime(300),
+      takeUntil(this.destroy$)
+    ).subscribe(text => {
+      this.note.txt = text
+      this.save()
+    })
+    setTimeout(() => this.adjustHeight(this.textareaRef.nativeElement))
+  }
+  save() {
     this.saveEvent.emit(this.note)
   }
-  // private _ngZone = inject(NgZone)
-  // @ViewChild('autosize') autosize!: CdkTextareaAutosize
 
-  // triggerResize(){
-  //   this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true))
-  // }
+  onTextChange(newText: string) {
+    this.textChange$.next(newText)
+  }
+
+  adjustHeight(eventTarget: EventTarget | null) {
+    if (eventTarget instanceof HTMLTextAreaElement) {
+      const textarea = eventTarget
+      textarea.style.height = 'fit-content'
+      console.log("textarea:", textarea.scrollHeight)
+      console.log("textarea.style.height:", textarea.style.height)
+      textarea.style.height = `${textarea.scrollHeight}px`
+    }
+  }
+
+  ngOnDestroy() {
+    this.save();
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

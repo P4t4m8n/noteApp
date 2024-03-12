@@ -1,6 +1,6 @@
-<li class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)">
+<li class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)" [style.background-color]="note.bgc">
   <a [routerLink]="['/note/edit',note._id]">
     <ng-template #noteContainer></ng-template>
-    <buttons #btns></buttons>
   </a>
+  <buttons #btns (setColor)="setColor($event)"></buttons>
 </li>

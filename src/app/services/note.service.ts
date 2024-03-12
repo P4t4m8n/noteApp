@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NoteModel, TextNoteModel } from '../models/note.model';
 import { storageService } from './async-storage.service';
 import { BehaviorSubject, Observable, catchError, from, retry, tap, throwError } from 'rxjs';
+import { UtilService } from './util.service';
 
 const NOTE_DB = 'note'
 export const TODO = 'todo'
@@ -79,7 +80,7 @@ export class NoteService {
 
   #createNots(): NoteModel[] {
     let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
-      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT }))
+      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor() }))
     return demoNotes
   }
 
