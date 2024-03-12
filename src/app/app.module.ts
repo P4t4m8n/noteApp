@@ -22,8 +22,9 @@ import { ColorSvg } from './svgs/color-svg/color-svg.component';
 import { UploadImageSvg } from './svgs/upload-image-svg/upload-image-svg.component';
 import { DotsSvg } from './svgs/dots-svg/dots-svg.component';
 import { Buttons } from './cmps/buttons/buttons.component';
-import { ColorModalComponent } from './cmps/color-modal/color-modal.component';
+import { ColorModal } from './cmps/color-modal/color-modal.component';
 import { UndoSvg } from './svgs/undo-svg/undo-svg.component';
+import { PinnedSvg } from './svgs/pinned-svg/pinned-svg.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +46,9 @@ import { UndoSvg } from './svgs/undo-svg/undo-svg.component';
     UploadImageSvg,
     DotsSvg,
     Buttons,
-    ColorModalComponent,
+    ColorModal,
     UndoSvg,
+    PinnedSvg,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TextNoteModel } from '../../../models/note.model';
+import { NoteModel } from '../../../models/note.model';
 
 @Component({
   selector: 'note-text',
@@ -9,9 +9,11 @@ import { TextNoteModel } from '../../../models/note.model';
 
 })
 export class NoteText implements OnInit {
-  @Input() note!: TextNoteModel
-
-
+  @Input() note!: NoteModel
+  
   ngOnInit(): void {
+    console.log("note:", this.note)
   }
+
+  
 }

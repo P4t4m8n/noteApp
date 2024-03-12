@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
-import { NoteModel, TextNoteModel } from '../../../models/note.model';
+import { NoteModel } from '../../../models/note.model';
 import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +22,7 @@ export class NoteEditManager implements OnInit {
   elRef = inject(ElementRef)
   noteService = inject(NoteService)
   cdr = inject(ChangeDetectorRef)
+  @Input() propsNote!: NoteModel
 
   @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
   @ViewChild('btns') noteBtns!: Buttons
@@ -29,20 +30,25 @@ export class NoteEditManager implements OnInit {
   isInitialized = false
   isModal = false
   destroySubject$ = new Subject()
-  note: Partial<TextNoteModel> = this.noteService.getEmptyNote()
-  type: string = TXT
+  note: Partial<NoteModel> = this.noteService.getEmptyNote()
+  mode: 'edit' | 'new' | 'preview' = 'preview'
 
   ngOnInit(): void {
     this.route.data
-      .pipe(map(data => {
-        return data['note']
-      }))
+      .pipe(map(data =>
+        data['note']))
       .subscribe(note => {
-        console.log("note:", note)
         if (note) {
+          console.log("note:", note)
           this.note = note
-          this.isModal = true
+          this.mode = 'new'
+          if (note._id) {
+            this.isModal = true
+            this.mode = 'edit'
+          }
         }
+        else this.note = this.propsNote
+        console.log("this.propsNote:", this.propsNote)
       })
 
     setTimeout(() => {
@@ -58,14 +64,20 @@ export class NoteEditManager implements OnInit {
 
   loadComponent() {
     this.noteEditContainerRef.clear()
-    const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
-    componentRef.instance.note = this.note as TextNoteModel
-    componentRef.instance.note = this.note as TextNoteModel
-    componentRef.instance.saveEvent.subscribe((note: TextNoteModel) => {
-      this.saveNote(note)
+    let componentRef
+    if (this.mode == 'preview') componentRef = this.noteEditContainerRef.createComponent(NoteText)
+    else {
+      componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
+      componentRef.instance.saveEvent.subscribe((note: NoteModel) => {
+        this.saveNote(note)
+      })
 
-    })
+    }
+    componentRef.instance.note = this.note as NoteModel
 
+  }
+  toggleBtns(isHovered: boolean) {
+    this.noteBtns.isHovered = isHovered
   }
 
   setColor(color: string) {

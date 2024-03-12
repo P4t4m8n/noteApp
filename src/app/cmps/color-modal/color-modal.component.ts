@@ -5,7 +5,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Output, inject } fro
   templateUrl: './color-modal.component.html',
   styleUrl: './color-modal.component.scss'
 })
-export class ColorModalComponent {
+export class ColorModal {
   @Output() setColor = new EventEmitter<string>()
   colors: string[] = [
     '#ffffff', '#f28b82', '#fbbc04', '#fff475',

@@ -3,9 +3,10 @@ export interface NoteModel {
     createdAt: number
     type: string
     bgc: string
-    
+    txt: string
+    imgs: string[]
+    labels: string[]
+    isPinned:boolean
+
 }
 
-export interface TextNoteModel extends NoteModel {
-    txt: string
-}

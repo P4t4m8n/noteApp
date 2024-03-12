@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef, inject } from '@angular/core';
-import { NoteModel, TextNoteModel } from '../../../models/note.model';
+import { NoteModel } from '../../../models/note.model';
 import { NoteService, TXT } from '../../../services/note.service';
 import { NoteText } from '../../notePreview/note-text/note-text.component';
 import { Buttons } from '../../buttons/buttons.component';
@@ -27,10 +27,11 @@ export class NotePreviewManager {
     this.cdr.detectChanges()
   }
 
+
   loadComponent() {
     this.notesContainerRef.clear()
     const componentRef = this.notesContainerRef.createComponent(NoteText)
-    componentRef.instance.note = this.note as TextNoteModel
+    componentRef.instance.note = this.note as NoteModel
   }
 
   onRemoveNote(noteId: string) {

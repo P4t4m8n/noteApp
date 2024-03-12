@@ -1,3 +1,5 @@
 <ul class="note-list">
-  <note-preview-manager *ngFor="let note of notes" [note]="note"></note-preview-manager>
+  
+  <note-edit-manager *ngFor="let note of notes" [propsNote]="note"></note-edit-manager>
 </ul>
+

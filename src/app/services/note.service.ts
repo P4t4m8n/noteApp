@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NoteModel, TextNoteModel } from '../models/note.model';
+import { NoteModel } from '../models/note.model';
 import { storageService } from './async-storage.service';
 import { BehaviorSubject, Observable, catchError, from, retry, tap, throwError } from 'rxjs';
 import { UtilService } from './util.service';
@@ -94,7 +94,7 @@ export class NoteService {
 
   #createNots(): NoteModel[] {
     let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
-      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor() }))
+      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor(), imgs: [], labels: [], isPinned: false }))
     return demoNotes
   }
 

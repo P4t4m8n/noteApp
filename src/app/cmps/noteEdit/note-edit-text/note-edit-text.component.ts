@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, inject } from '@angular/core';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
-import { TextNoteModel } from '../../../models/note.model';
 import { FormsModule } from '@angular/forms';
+import { NoteModel } from '../../../models/note.model';
 
 @Component({
   selector: 'note-edit-text',
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class NoteEditText implements AfterViewInit, OnDestroy {
 
-  @Input() note!: TextNoteModel
+  @Input() note!: NoteModel
   @Output() saveEvent = new EventEmitter()
   @ViewChild('textareaRef') textareaRef!: ElementRef<HTMLTextAreaElement>;
 

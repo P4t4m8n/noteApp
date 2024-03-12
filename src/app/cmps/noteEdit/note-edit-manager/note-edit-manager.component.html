@@ -1,4 +1,11 @@
-<section [ngClass]="{modal:isModal,newNote:!isModal}" [style.background-color]="note.bgc">
+<li *ngIf="mode==='preview'" class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)" [style.background-color]="note.bgc">
+  <a [routerLink]="['/note/edit',note._id]">
+    <ng-template #noteEditContainer></ng-template>
+  </a>
+  <buttons #btns (setColor)="setColor($event)" (remove)="onRemoveNote(note._id)"></buttons>
+</li>
+
+<section *ngIf="mode!=='preview'" [ngClass]="{modal:isModal,newNote:!isModal}" [style.background-color]="note.bgc">
   <ng-template #noteEditContainer></ng-template>
   <buttons #btns (setColor)="setColor($event)" (close)="onBack()" (remove)="onRemoveNote(note._id)"></buttons>
 </section>
