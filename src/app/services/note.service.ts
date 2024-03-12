@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NoteModel } from '../models/note.model';
 import { storageService } from './async-storage.service';
-import { BehaviorSubject, Observable, catchError, from, retry, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, from, map, retry, tap, throwError } from 'rxjs';
 import { UtilService } from './util.service';
 
 const NOTE_DB = 'note'
@@ -27,7 +27,8 @@ export class NoteService {
   query() {
     return from(storageService.query<NoteModel>(NOTE_DB))
       .pipe(
-        tap(notes => this.#_notes$.next(notes)),
+        map(notes => this.#sortNotes(notes)),
+        tap(sortedNotes => this.#_notes$.next(sortedNotes)),
         retry(1),
         catchError(this.#handleError)
       )
@@ -66,8 +67,9 @@ export class NoteService {
     return from(storageService.post(NOTE_DB, note as NoteModel))
       .pipe(
         tap((newNote: NoteModel) => {
-          const notes = this.#_notes$.value
-          this.#_notes$.next([...notes, newNote])
+          let notes = [...this.#_notes$.value, newNote]
+          notes = this.#sortNotes(notes)
+          this.#_notes$.next(notes)
         }),
         retry(1),
         catchError(this.#handleError))
@@ -77,9 +79,12 @@ export class NoteService {
     return from(storageService.put(NOTE_DB, note))
       .pipe(
         tap(updateNote => {
-          const notes = this.#_notes$.value
+          let notes = this.#_notes$.value
           const idx = notes.findIndex(_note => _note._id === updateNote._id)
           notes.splice(idx, 1, updateNote)
+
+          notes = this.#sortNotes(notes)
+          this.#_notes$.next(notes)
           return updateNote
         }),
         retry(1),
@@ -94,26 +99,19 @@ export class NoteService {
 
   #createNots(): NoteModel[] {
     let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
-      ({ _id: this.#makeId(), txt: this.#makeLorem(), createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor(), imgs: [], labels: [], isPinned: false }))
+    ({
+      _id: UtilService.makeId(), txt: UtilService.makeLorem(),
+      createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor(),
+      imgs: [], labels: [], isPinned: false
+    }))
     return demoNotes
   }
 
-  #makeId(length = 5) {
-    var text = ""
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    for (var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-    return text
-  }
+  #sortNotes(notes: NoteModel[]): NoteModel[] {
+    notes.sort((a, b) => {
+      return (b.isPinned === a.isPinned) ? 0 : b.isPinned ? 1 : -1;
+    })
+    return notes
 
-  #makeLorem(size = 5) {
-    var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn']
-    var txt = ''
-    while (size > 0) {
-      size--
-      txt += words[Math.floor(Math.random() * words.length)] + ' '
-    }
-    return txt
   }
 }

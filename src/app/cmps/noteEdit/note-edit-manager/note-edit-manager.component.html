@@ -1,3 +1,6 @@
+<button (click)="setPinned()">
+  <pinned-svg [ngClass]="{pinned:note.isPinned}"></pinned-svg>
+</button>
 <li *ngIf="mode==='preview'" class="note-preview" (mouseenter)="toggleBtns(true)" (mouseleave)="toggleBtns(false)" [style.background-color]="note.bgc">
   <a [routerLink]="['/note/edit',note._id]">
     <ng-template #noteEditContainer></ng-template>

@@ -12,7 +12,6 @@ export class NoteText implements OnInit {
   @Input() note!: NoteModel
   
   ngOnInit(): void {
-    console.log("note:", this.note)
   }
 
   

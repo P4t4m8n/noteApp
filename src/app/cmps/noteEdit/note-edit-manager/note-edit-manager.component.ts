@@ -39,7 +39,6 @@ export class NoteEditManager implements OnInit {
         data['note']))
       .subscribe(note => {
         if (note) {
-          console.log("note:", note)
           this.note = note
           this.mode = 'new'
           if (note._id) {
@@ -48,7 +47,6 @@ export class NoteEditManager implements OnInit {
           }
         }
         else this.note = this.propsNote
-        console.log("this.propsNote:", this.propsNote)
       })
 
     setTimeout(() => {
@@ -76,12 +74,17 @@ export class NoteEditManager implements OnInit {
     componentRef.instance.note = this.note as NoteModel
 
   }
+
   toggleBtns(isHovered: boolean) {
     this.noteBtns.isHovered = isHovered
   }
 
+  setPinned() {
+    this.note.isPinned = !this.note.isPinned
+    this.saveNote(this.note)
+  }
+
   setColor(color: string) {
-    console.log("color:", color)
     this.note.bgc = color
     this.saveNote(this.note)
     this.cdr.detectChanges()
