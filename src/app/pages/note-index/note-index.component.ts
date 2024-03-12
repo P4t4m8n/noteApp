@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { NoteModel } from '../../models/note.model';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'note-index',

@@ -8,10 +8,9 @@ import { App } from './app-root/app.component';
 import { NoteIndex } from './pages/note-index/note-index.component';
 import { NoteList } from './cmps/note-list/note-list.component';
 import { NoteFilter } from './cmps/note-filter/note-filter.component';
-import { NoteText } from './cmps/notePreview/note-text/note-text.component';
+import { NoteText } from './cmps/noteEdit/note-text/note-text.component';
 import { AppHeader } from './cmps/app-header/app-header.component';
 import { AppNav } from './cmps/app-nav/app-nav.component';
-import { NotePreviewManager } from './cmps/notePreview/note-preview-manager/note-preview-manager.component';
 import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-manager.component';
 import { ReminderSvg } from './svgs/reminder/reminder.component';
 import { EditLabelsSvg } from './svgs/edit-labels/edit-labels.component';
@@ -36,7 +35,6 @@ import { PinnedFullSvgComponent } from './svgs/pinned-full-svg/pinned-full-svg.c
     NoteText,
     AppHeader,
     AppNav,
-    NotePreviewManager,
     NoteEditManager,
     LightBulbSvg,
     ReminderSvg,

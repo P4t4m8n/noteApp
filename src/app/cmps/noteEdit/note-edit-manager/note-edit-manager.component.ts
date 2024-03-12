@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { NoteModel } from '../../../models/note.model';
-import { NoteService, TXT } from '../../../services/note.service';
-import { NoteText } from '../../notePreview/note-text/note-text.component';
+import { NoteService } from '../../../services/note.service';
+import { NoteText } from '../note-text/note-text.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, map, take, takeUntil, tap } from 'rxjs';
 import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 import { Buttons } from '../../buttons/buttons.component';

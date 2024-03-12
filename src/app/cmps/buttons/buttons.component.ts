@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, inject } from '@an
 @Component({
   selector: 'buttons',
   templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.scss', '../notePreview/note-preview-manager/note-preview-manager.component.scss']
+  styleUrls: ['./buttons.component.scss']
 })
 export class Buttons implements OnInit {
 
