@@ -9,11 +9,11 @@ body {
 
 }
 
-body:has(.modal) {
-    :not(.modal, .modal *) {
-        pointer-events: none;
-    }
-}
+// body:has(.modal) {
+//     :not(.modal, .modal *) {
+//         pointer-events: none;
+//     }
+// }
 
 body {
     margin: 0;
@@ -35,3 +35,67 @@ a {
     cursor: auto;
 }
 
+.note-modal,
+.note-preview {
+
+    &:hover,
+    &:focus {
+        .btns,.pinned-btn {
+            opacity: 1;
+        }
+    }
+}
+
+.modal {
+    .btns,.pinned-btn  {
+        opacity: 1 !important;
+
+    }
+}
+
+// .modal-background {
+//     position: relative;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     z-index: 10000;
+//     /* Adjust as necessary */
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background: rgba(0, 0, 0, 0.5);
+//     opacity: 1 !important;
+//     width: 100px;
+//     height: 100px;
+//     background-color: red;
+//     overflow: visible;
+
+//     .modal-content {
+//         display: block;
+//         height: 100px;
+//         width: 100px;
+//         z-index: 999 !important;
+//         opacity: 1 !important;
+//         overflow: visible;
+
+//         .color-options {
+//             height: 100px;
+//             width: 100px;
+//             z-index: 999 !important;
+//             opacity: 1 !important;
+//             overflow: visible;
+
+//             .color-option {
+//                 height: 100px;
+//                 width: 100px;
+//                 z-index: 999 !important;
+//                 opacity: 1 !important;
+//                 overflow: visible;
+
+
+//             }
+
+//         }
+//     }
+// }

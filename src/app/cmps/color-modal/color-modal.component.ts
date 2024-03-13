@@ -1,9 +1,14 @@
 import { Component, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
-
+import { MatMenuModule } from '@angular/material/menu'
+import { MatButtonModule } from '@angular/material/button'
+import { ColorSvg } from '../../svgs/color-svg/color-svg.component';
+import { CommonModule } from '@angular/common';
 @Component({
+  standalone: true,
   selector: 'color-modal',
   templateUrl: './color-modal.component.html',
-  styleUrl: './color-modal.component.scss'
+  styleUrl: './color-modal.component.scss',
+  imports: [MatButtonModule, MatMenuModule,ColorSvg,CommonModule],
 })
 export class ColorModal {
   @Output() setColor = new EventEmitter<string>()
@@ -13,27 +18,28 @@ export class ColorModal {
     '#d7aefb', '#fdcfe8', '#e6c9a8', '#e8eaed']
 
   elRef = inject(ElementRef)
-  isOpen: boolean = false
+  isOpen: boolean = true
 
   selectColor(color: string): void {
     console.log("color:", color)
     this.setColor.emit(color)
-    this.handleModal(false)
+    this.handleModal()
 
   }
 
-  @HostListener('document:click', ['$event'])
-  handleColorClick(event: MouseEvent) {
-    event.preventDefault()
-    event.stopPropagation()
+  // @HostListener('document:click', ['$event'])
+  // handleColorClick(ev: MouseEvent) {
+  //   ev.preventDefault()
+  //   ev.stopPropagation()
 
-    if (!this.elRef.nativeElement.contains(event.target)) {
-      this.handleModal(false)
-    }
-  }
+  //   if (!this.elRef.nativeElement.contains(ev.target)) {
+  //     console.log('aaaaaaaaaa')
+  //     this.handleModal(false)
+  //   }
+  // }
 
-  handleModal(isOpen: boolean): void {
-    this.isOpen = isOpen
+  handleModal(): void {
+    this.isOpen = !this.isOpen 
   }
 
 }

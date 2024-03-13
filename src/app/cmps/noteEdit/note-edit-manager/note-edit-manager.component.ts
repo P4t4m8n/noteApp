@@ -74,14 +74,7 @@ export class NoteEditManager implements OnInit {
 
   }
 
-  toggleBtns(ev: Event, isHovered: boolean) {
-    ev.preventDefault()
-    ev.stopPropagation()
-    console.log('test')
-    this.noteBtns.isHovered = isHovered
-  }
-
-  setPinned(ev:Event) {
+  setPinned(ev: Event) {
     ev.stopPropagation()
     this.note.isPinned = !this.note.isPinned
     this.saveNote(this.note)
@@ -105,7 +98,7 @@ export class NoteEditManager implements OnInit {
     this.noteService.remove(noteId)
       .pipe(
         tap(() => {
-          this.onBack()
+          // this.onBack()
         }),
         take(1)
       )
@@ -117,34 +110,36 @@ export class NoteEditManager implements OnInit {
   }
 
   onBack = () => {
+    console.log('back')
+    this.cdr.detectChanges()
     this.router.navigateByUrl('/note')
   }
 
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement
+  // @HostListener('document:click', ['$event'])
+  // handleDocumentClick(event: MouseEvent) {
+  //   const target = event.target as HTMLElement
 
-    const viewContainerRef = this.noteEditContainerRef
-    const clickedInsideEdit = this.elRef.nativeElement.contains(target)
-    const clickedInsideButtons = this.noteBtns['elRef'].nativeElement.contains(target)
+  //   const viewContainerRef = this.noteEditContainerRef
+  //   const clickedInsideEdit = this.elRef.nativeElement.contains(target)
+  //   const clickedInsideButtons = this.noteBtns['elRef'].nativeElement.contains(target)
 
-    if (!this.isInitialized || !this.isModal || clickedInsideButtons || clickedInsideEdit) return
+  //   if (!this.isInitialized || !this.isModal || clickedInsideButtons || clickedInsideEdit) return
 
-    // for (let i = 0; i < viewContainerRef.length; i++) {
-    //   const viewRef = viewContainerRef.get(i)
-    //   console.log("viewContainerRef:", viewContainerRef)
-    //   console.log("viewRef:", viewRef)
-    //   if (viewRef) {
-    //     // const componentRef = viewRef['_view'].component
-    //     // if (componentRef && componentRef.location.nativeElement.contains(target)) {
-    //     //   return
-    //     // }
-    //     // if (!this.isInitialized || !this.isModal || clickedInsideButtons || viewContainerRef) return
-    //   }
+  //   // for (let i = 0; i < viewContainerRef.length; i++) {
+  //   //   const viewRef = viewContainerRef.get(i)
+  //   //   console.log("viewContainerRef:", viewContainerRef)
+  //   //   console.log("viewRef:", viewRef)
+  //   //   if (viewRef) {
+  //   //     // const componentRef = viewRef['_view'].component
+  //   //     // if (componentRef && componentRef.location.nativeElement.contains(target)) {
+  //   //     //   return
+  //   //     // }
+  //   //     // if (!this.isInitialized || !this.isModal || clickedInsideButtons || viewContainerRef) return
+  //   //   }
 
-    // }
-    this.onBack()
-  }
+  //   // }
+  //   this.onBack()
+  // }
 
   ngOnDestroy(): void {
     this.destroySubject$.next(null)

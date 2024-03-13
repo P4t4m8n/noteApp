@@ -5,10 +5,10 @@
     display: flex;
     justify-content: space-around;
     padding-bottom: 12px;
+    opacity: 1;
 
     button {
         position: relative;
-        opacity: 0;
         transition: opacity .3s ease-in-out;
         background: inherit;
         border: none;
@@ -34,3 +34,4 @@
         display: none;
     }
 }
+

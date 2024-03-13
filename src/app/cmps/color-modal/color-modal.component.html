@@ -1,11 +1,19 @@
-<button (click)="handleModal(true)">
+<button (click)="handleModal()">
   <color-svg></color-svg>
 </button>
 
-<div *ngIf="isOpen" class="modal-background" (click)="handleModal(false)">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<div modal (clickOutside)="handleModal()" *ngIf="isOpen" class="modal-background" >
+  <div class="modal-content" >
     <div class="color-options">
       <div *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" (click)="selectColor(color)"></div>
     </div>
   </div>
 </div>
+
+<!-- 
+<button mat-button [matMenuTriggerFor]="menu">
+  <color-svg></color-svg>
+</button>
+<mat-menu #menu="matMenu" #beforeMenu="matMenu" xPosition="after">
+  <button *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" (click)="selectColor(color)"></button>
+</mat-menu> -->
