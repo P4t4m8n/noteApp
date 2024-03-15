@@ -27,7 +27,6 @@ export class NoteService {
   query() {
     return from(storageService.query<NoteModel>(NOTE_DB))
       .pipe(
-        map(notes => this.#sortNotes(notes)),
         tap(sortedNotes => this.#_notes$.next(sortedNotes)),
         retry(1),
         catchError(this.#handleError)
@@ -59,7 +58,13 @@ export class NoteService {
 
   getEmptyNote(): Partial<NoteModel> {
     return {
-      type: ''
+      createdAt: Date.now(),
+      bgc: 'ffffff',
+      txt: '',
+      imgs: [],
+      labels: [],
+      isPinned: false
+
     }
   }
 
@@ -68,7 +73,6 @@ export class NoteService {
       .pipe(
         tap((newNote: NoteModel) => {
           let notes = [...this.#_notes$.value, newNote]
-          notes = this.#sortNotes(notes)
           this.#_notes$.next(notes)
         }),
         retry(1),
@@ -82,8 +86,6 @@ export class NoteService {
           let notes = this.#_notes$.value
           const idx = notes.findIndex(_note => _note._id === updateNote._id)
           notes.splice(idx, 1, updateNote)
-
-          notes = this.#sortNotes(notes)
           this.#_notes$.next(notes)
           return updateNote
         }),
@@ -101,17 +103,11 @@ export class NoteService {
     let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
     ({
       _id: UtilService.makeId(), txt: UtilService.makeLorem(),
-      createdAt: Date.now(), type: TXT, bgc: UtilService.getRandomColor(),
+      createdAt: Date.now(), type: TXT, bgc: UtilService.getAllowedColor(),
       imgs: [], labels: [], isPinned: false
     }))
     return demoNotes
   }
 
-  #sortNotes(notes: NoteModel[]): NoteModel[] {
-    notes.sort((a, b) => {
-      return (b.isPinned === a.isPinned) ? 0 : b.isPinned ? 1 : -1;
-    })
-    return notes
 
-  }
 }

@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, map, take, takeUntil, tap } from 'rxjs';
 import { NoteEditText } from '../note-edit-text/note-edit-text.component';
 import { Buttons } from '../../buttons/buttons.component';
+import { ImageUploadService } from '../../../services/image-upload.service';
 
 @Component({
   selector: 'note-edit-manager',
@@ -18,9 +19,12 @@ export class NoteEditManager implements OnInit {
 
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+
   elRef = inject(ElementRef)
   noteService = inject(NoteService)
+  imgUploadService = inject(ImageUploadService)
   cdr = inject(ChangeDetectorRef)
+
   @Input() propsNote!: NoteModel
 
   @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
@@ -55,8 +59,8 @@ export class NoteEditManager implements OnInit {
 
   ngAfterViewInit(): void {
     this.loadComponent()
-    this.cdr.detectChanges()
     this.noteBtns.isHovered = true
+    this.cdr.detectChanges()
   }
 
   loadComponent() {
@@ -78,13 +82,13 @@ export class NoteEditManager implements OnInit {
     ev.stopPropagation()
     this.note.isPinned = !this.note.isPinned
     this.saveNote(this.note)
+    this.cdr.detectChanges()
   }
 
   setColor(color: string) {
-
     this.note.bgc = color
     this.saveNote(this.note)
-    this.cdr.detectChanges()
+    this.cdr.markForCheck()
   }
 
   saveNote(note: NoteModel | Partial<NoteModel>) {
@@ -93,7 +97,23 @@ export class NoteEditManager implements OnInit {
       .subscribe({ error: err => console.log('err', err) })
   }
 
-  onRemoveNote(noteId: string | undefined) {
+  uploadImg(ev: Event) {
+    const target = ev.target as HTMLInputElement
+    if (target.files && target.files[0]) {
+      const file = target.files[0]
+      this.imgUploadService.uploadImg(file)
+        .subscribe(link => {
+          console.log("link:", link)
+          this.note.imgs?.push(link)
+          this.saveNote(this.note)
+          this.cdr.markForCheck()
+
+        })
+    }
+
+  }
+
+  remove(noteId: string | undefined) {
     if (!noteId) return
     this.noteService.remove(noteId)
       .pipe(
@@ -111,7 +131,7 @@ export class NoteEditManager implements OnInit {
 
   onBack = () => {
     console.log('back')
-    this.cdr.detectChanges()
+    this.cdr.markForCheck()
     this.router.navigateByUrl('/note')
   }
 
