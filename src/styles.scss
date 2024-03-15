@@ -9,11 +9,17 @@ body {
 
 }
 
-// body:has(.modal) {
-//     :not(.modal, .modal *) {
-//         pointer-events: none;
-//     }
-// }
+body:has(.modal) {
+
+    .modal,
+    .modal * {
+        pointer-events: all;
+    }
+
+    :not(.modal, .modal *) {
+        pointer-events: none;
+    }
+}
 
 body {
     margin: 0;
@@ -40,14 +46,18 @@ a {
 
     &:hover,
     &:focus {
-        .btns,.pinned-btn {
+
+        .btns,
+        .pinned-btn {
             opacity: 1;
         }
     }
 }
 
 .modal {
-    .btns,.pinned-btn  {
+
+    .btns,
+    .pinned-btn {
         opacity: 1 !important;
 
     }

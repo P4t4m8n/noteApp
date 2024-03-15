@@ -1,33 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageUploadService {
 
+  private readonly CLOUD_NAME = "dpnevk8db"
+  private readonly UPLOAD_PRESET = "k0lgk29w"
+  private readonly UPLOAD_URL = `https://api.cloudinary.com/v1_1/${this.CLOUD_NAME}/image/upload`
+
   constructor(private http: HttpClient) { }
 
-  static async uploadImg(file: any) {
-    const CLOUD_NAME = "dpnevk8db"
-    const UPLOAD_PRESET = "k0lgk29w"
-    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+  uploadImg(file: any): Observable<string> {
+    const formData = new FormData()
+    formData.append('upload_preset', this.UPLOAD_PRESET)
+    formData.append('file', file)
 
-    try {
-      const formData = new FormData()
-      formData.append('upload_preset', UPLOAD_PRESET)
-      formData.append('file', file)
-
-      const res = await fetch(UPLOAD_URL, {
-        method: 'POST',
-        body: formData
-      })
-
-      const imgUrl = await res.json()
-      return imgUrl.url
-    } catch (err) {
-      console.error('Failed to upload', err)
-      throw err
-    }
+    return this.http.post<any>(this.UPLOAD_URL, formData).pipe(
+      map(response => response.url)
+    )
   }
 }

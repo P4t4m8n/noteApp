@@ -5,7 +5,8 @@
 <button>
   <color-svg></color-svg>
 </button>
-  <button>
+  <button (click)="fileUpload.click()">
+    <input type="file" hidden (change)="onUploadImg($event)" #fileUpload>
     <upload-image-svg></upload-image-svg>
   </button>
   <button>
