@@ -1,5 +1,5 @@
 <li class="note preview" [style.background-color]="note.bgc">
-  <button [ngClass]="{pinned:note.isPinned}" class="pinned-btn">
+  <button [ngClass]="{pinned:note.isPinned}" pinned [note]=note class="pinned-btn">
     <pinned-svg *ngIf="!note.isPinned"></pinned-svg>
     <pinned-full-svg *ngIf="note.isPinned"></pinned-full-svg>
   </button>

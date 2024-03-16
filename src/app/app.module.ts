@@ -31,6 +31,7 @@ import { NotePreviewComponent } from './cmps/noteEdit/note-preview/note-preview.
 import { NoteButtonsDirective } from './directives/buttons.directive';
 import { BurgerIconComponent } from './svgs/burger-icon/burger-icon.component';
 import { SearchSvgComponent } from './svgs/search-svg/search-svg.component';
+import { PinnedDirective } from './directives/pinned.directive';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { SearchSvgComponent } from './svgs/search-svg/search-svg.component';
     NoteButtonsDirective,
     BurgerIconComponent,
     SearchSvgComponent,
+    PinnedDirective,
 
   ],
   imports: [

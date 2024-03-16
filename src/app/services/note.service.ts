@@ -109,12 +109,14 @@ export class NoteService {
     }))
     return demoNotes
   }
+  
   #sortNotes(notes: NoteModel[]): NoteModel[] {
     notes.sort((a, b) => {
       return (b.isPinned === a.isPinned) ? 0 : b.isPinned ? 1 : -1;
     })
-    return notes}
-    
+    return notes
+  }
+
 
 
 }

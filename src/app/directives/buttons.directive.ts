@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, HostListener, Input, OnInit, inject } from '@angular/core'
+import { ChangeDetectorRef, Directive, HostListener, Input, OnDestroy, OnInit, inject } from '@angular/core'
 import { NoteModel } from '../models/note.model'
 import { NoteService } from '../services/note.service'
 import { Subject, take, takeUntil, tap } from 'rxjs'
@@ -8,7 +8,7 @@ import { Router } from '@angular/router'
 @Directive({
   selector: '[note-buttons]'
 })
-export class NoteButtonsDirective implements OnInit {
+export class NoteButtonsDirective implements OnInit, OnDestroy {
 
   @Input() noteBtnActions: '' | 'remove' | 'test' = ''
 
@@ -87,7 +87,7 @@ export class NoteButtonsDirective implements OnInit {
     this.noteService.save(note)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-        next: (() => this.cdr.markForCheck()),
+        next: (() => this.#onBack),
         error: err => console.log('err', err)
       })
   }
@@ -105,5 +105,10 @@ export class NoteButtonsDirective implements OnInit {
 
   #onBack = () => {
     this.router.navigateByUrl('/note')
+  }
+
+  ngOnDestroy(): void {
+    this.destroySubject$.next(null)
+    this.destroySubject$.complete()
   }
 }
