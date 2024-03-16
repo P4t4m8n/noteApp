@@ -22,6 +22,7 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
   elRef = inject(ElementRef)
 
   ngAfterViewInit() {
+    console.log(this.note)
     this.textChange$.pipe(
       debounceTime(300),
       takeUntil(this.destroy$)

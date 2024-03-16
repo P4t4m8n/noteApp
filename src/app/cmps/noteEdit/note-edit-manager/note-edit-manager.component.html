@@ -8,7 +8,7 @@
     <img *ngFor=" let img of note.imgs " src="{{img}}">
     <ng-template #noteEditContainer></ng-template>
   </a>
-  <buttons #btns (setColor)="setColor($event)" (uploadImg)="uploadImg($event)" (remove)="remove(note._id)"></buttons>
+  <buttons #btns></buttons>
 </li>
 
 <section modal (clickOutside)="onBack()" *ngIf="mode!=='preview'" class="note-modal" [ngClass]="{modal:isModal,newNote:!isModal}" [style.background-color]="note.bgc">
@@ -17,5 +17,6 @@
     <pinned-full-svg *ngIf="note.isPinned"></pinned-full-svg>
   </button>
   <ng-template #noteEditContainer></ng-template>
-  <buttons #btns (setColor)="setColor($event)" (close)="onBack()" (remove)="remove(note._id)"></buttons>
+  <buttons  (note)="note" #btns></buttons>
+  <button (click)="onBack()"></button>
 </section>

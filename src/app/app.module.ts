@@ -8,7 +8,6 @@ import { App } from './app-root/app.component';
 import { NoteIndex } from './pages/note-index/note-index.component';
 import { NoteList } from './cmps/note-list/note-list.component';
 import { NoteFilter } from './cmps/note-filter/note-filter.component';
-import { NoteText } from './cmps/noteEdit/note-text/note-text.component';
 import { AppHeader } from './cmps/app-header/app-header.component';
 import { AppNav } from './cmps/app-nav/app-nav.component';
 import { NoteEditManager } from './cmps/noteEdit/note-edit-manager/note-edit-manager.component';
@@ -28,6 +27,8 @@ import { PinnedFullSvgComponent } from './svgs/pinned-full-svg/pinned-full-svg.c
 import { ModalDirective } from './directives/modal.directive';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SortByPipe } from './pipes/sort-by.pipe';
+import { NotePreviewComponent } from './cmps/noteEdit/note-preview/note-preview.component';
+import { NoteButtonsDirective } from './directives/buttons.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,6 @@ import { SortByPipe } from './pipes/sort-by.pipe';
     NoteIndex,
     NoteList,
     NoteFilter,
-    NoteText,
     AppHeader,
     AppNav,
     NoteEditManager,
@@ -52,6 +52,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
     PinnedFullSvgComponent,
     ModalDirective,
     SortByPipe,
+    NotePreviewComponent,
+    NoteButtonsDirective,
 
   ],
   imports: [

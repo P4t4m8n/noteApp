@@ -1,0 +1,41 @@
+.new-note {
+    position: relative;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    border: none;
+    display: flex;
+    width: 100%;
+
+    .text-area {
+        padding: 2em;
+        font-family: inherit;
+        font-size: 1rem;
+        border: none;
+        background-color: inherit;
+        width: 100%;
+        overflow-y: hidden;
+        resize: none;
+        height: auto;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            background-color: red;
+        }
+    }
+
+    .pinned-btn {
+        display: none;
+    }
+
+    .btns {
+        button {
+            display: none;
+        }
+
+        button:nth-child(3),
+        button:nth-child(1),
+        button:nth-child(2) {
+            display: block;
+        }
+    }
+}

@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { NoteModel } from '../../models/note.model';
 
 @Component({
   selector: 'buttons',
@@ -7,44 +8,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, inject } from '@an
 })
 export class Buttons implements OnInit {
 
-  @Output() setColor = new EventEmitter<string>()
-  @Output() close = new EventEmitter()
-  @Output() remove = new EventEmitter()
-  @Output() uploadImg = new EventEmitter()
-  elRef = inject(ElementRef)
-  
-  colors: string[] = [
-    '#ffffff', '#f28b82', '#fbbc04', '#fff475',
-    '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa',
-    '#d7aefb', '#fdcfe8', '#e6c9a8', '#e8eaed']
-    
-    isHovered = false
-  isOpen: boolean = false
-
-  selectColor(color: string): void {
-    this.setColor.emit(color)
-    this.handleModal()
-
-  }
-
-  handleModal(): void {
-    this.isOpen = !this.isOpen
-  }
+  @Input() note!: NoteModel | Partial<NoteModel>
   ngOnInit(): void {
   }
-
-  onChangeColor(color: string) {
-    this.setColor.emit(color)
-  }
-
-  onUploadImg(ev: Event) {
-    this.uploadImg.emit(ev)
-  }
-
-  onClose() {
-    this.close.emit()
-  }
-
-
 
 }

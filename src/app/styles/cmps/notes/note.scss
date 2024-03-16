@@ -1,0 +1,43 @@
+.note {
+    position: relative;
+    .img-con {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .2em;
+
+        img {
+            max-width: 5rem;
+            aspect-ratio: 1;
+            height: auto;
+            box-sizing: border-box;
+            display: block;
+            object-fit: scale-down;
+            flex: 1 1 calc(33.333% - .5em);
+            max-width: calc(33.333% - .5em);
+        }
+    }
+
+    .pinned-btn {
+        position: absolute;
+        background: inherit;
+        border: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        left: 87%;
+        top: 7%;
+        opacity: 0;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .pinned {
+        opacity: 1;
+        fill: blue;
+        color: red;
+
+        path {
+            fill: blue;
+        }
+    }
+
+}

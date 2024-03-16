@@ -86,6 +86,7 @@ export class NoteService {
           let notes = this.#_notes$.value
           const idx = notes.findIndex(_note => _note._id === updateNote._id)
           notes.splice(idx, 1, updateNote)
+
           this.#_notes$.next(notes)
           return updateNote
         }),
@@ -100,7 +101,7 @@ export class NoteService {
   }
 
   #createNots(): NoteModel[] {
-    let demoNotes: NoteModel[] = Array.from({ length: 10 }, () =>
+    let demoNotes: NoteModel[] = Array.from({ length: 9 }, () =>
     ({
       _id: UtilService.makeId(), txt: UtilService.makeLorem(),
       createdAt: Date.now(), type: TXT, bgc: UtilService.getAllowedColor(),
@@ -108,6 +109,12 @@ export class NoteService {
     }))
     return demoNotes
   }
+  #sortNotes(notes: NoteModel[]): NoteModel[] {
+    notes.sort((a, b) => {
+      return (b.isPinned === a.isPinned) ? 0 : b.isPinned ? 1 : -1;
+    })
+    return notes}
+    
 
 
 }

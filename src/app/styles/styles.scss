@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+
+//Note Cmps
+@import './cmps/notes/note.scss';
+@import './cmps/notes/newNote.scss';
+@import './cmps/notes/editNote.scss';
+@import './cmps/notes/notePreview.scss';
+@import './cmps/notes/btns.scss';
+@import './cmps/notes/noteEditTxt.scss';
+
+
+html,
+body {
+    height: 100%;
+    font-family: Roboto, Arial, sans-serif;
+
+}
+
+body:has(.modal) {
+
+    .modal,
+    .modal * {
+        pointer-events: all;
+    }
+
+    :not(.modal, .modal *) {
+        pointer-events: none;
+    }
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+li {
+
+    list-style: none;
+}
+
+ul {
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: auto;
+}

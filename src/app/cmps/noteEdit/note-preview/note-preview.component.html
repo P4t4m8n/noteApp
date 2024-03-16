@@ -1,0 +1,13 @@
+<li class="note preview" [style.background-color]="note.bgc">
+  <button [ngClass]="{pinned:note.isPinned}" class="pinned-btn">
+    <pinned-svg *ngIf="!note.isPinned"></pinned-svg>
+    <pinned-full-svg *ngIf="note.isPinned"></pinned-full-svg>
+  </button>
+  <a [routerLink]="['/note/edit',note._id]">
+    <div class="img-con" *ngIf="note.imgs">
+      <img *ngFor=" let img of note.imgs " src="{{img}}">
+    </div>
+    <h3>{{note.txt}}</h3>
+  </a>
+  <buttons note-buttons [note]="note"></buttons>
+</li>

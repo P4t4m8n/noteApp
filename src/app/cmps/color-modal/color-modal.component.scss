@@ -1,60 +1,60 @@
 
-:host{
-  opacity: 1 !important;
-  display: flex;
+// :host{
+//   opacity: 1 !important;
+//   display: flex;
 
-  position: relative;
-}
-.modal-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-  /* Adjust as necessary */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 1 !important;
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  overflow: visible;
+//   position: relative;
+// }
+// .modal-background {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   z-index: 10;
+//   /* Adjust as necessary */
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background: rgba(0, 0, 0, 0.5);
+//   opacity: 1 !important;
+//   width: 100px;
+//   height: 100px;
+//   background-color: red;
+//   overflow: visible;
 
-  .modal-content {
-    position: relative;
-      height: 100px;
-      width: 100px;
-      z-index: 11 !important;
-      opacity: 1 !important;
-      overflow: visible;
-      position: relative;
-      display: flex;
+//   .modal-content {
+//     position: relative;
+//       height: 100px;
+//       width: 100px;
+//       z-index: 11 !important;
+//       opacity: 1 !important;
+//       overflow: visible;
+//       position: relative;
+//       display: flex;
 
-      .color-options {
-          height: 100px;
-          width: 100px;
-          z-index: 12 !important;
-          opacity: 1 !important;
-          overflow: visible;
-          position: relative;
-          display: flex;
+//       .color-options {
+//           height: 100px;
+//           width: 100px;
+//           z-index: 12 !important;
+//           opacity: 1 !important;
+//           overflow: visible;
+//           position: relative;
+//           display: flex;
 
-          .color-option {
-              height: 100px;
-              width: 100px;
-              z-index: 13 !important;
-              opacity: 1 !important;
-              overflow: visible;
-              position: relative;
-              display: flex;
+//           .color-option {
+//               height: 100px;
+//               width: 100px;
+//               z-index: 13 !important;
+//               opacity: 1 !important;
+//               overflow: visible;
+//               position: relative;
+//               display: flex;
 
 
 
-          }
+//           }
 
-      }
-  }
-}
+//       }
+//   }
+// }

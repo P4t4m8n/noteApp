@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NoteModel } from '../../models/note.model';
 
 @Component({
@@ -7,12 +7,16 @@ import { NoteModel } from '../../models/note.model';
   styleUrl: './note-list.component.scss',
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class NoteList implements OnInit {
+export class NoteList implements OnInit,OnChanges {
 
   @Input() notes: NoteModel[] | null = null
   ngOnInit(): void {
-    console.log("notes:", this.notes)
-
+    
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+      console.log("changes:", changes['notes'].currentValue)
+      
   }
   trackByFn(index: number, note: any) {
     return note._id

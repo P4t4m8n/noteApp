@@ -38,7 +38,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
+              "src/app/styles/styles.scss"
             ],
             "scripts": []
           },
