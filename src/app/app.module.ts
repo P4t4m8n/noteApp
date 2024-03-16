@@ -29,6 +29,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { NotePreviewComponent } from './cmps/noteEdit/note-preview/note-preview.component';
 import { NoteButtonsDirective } from './directives/buttons.directive';
+import { BurgerIconComponent } from './svgs/burger-icon/burger-icon.component';
+import { SearchSvgComponent } from './svgs/search-svg/search-svg.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { NoteButtonsDirective } from './directives/buttons.directive';
     SortByPipe,
     NotePreviewComponent,
     NoteButtonsDirective,
+    BurgerIconComponent,
+    SearchSvgComponent,
 
   ],
   imports: [

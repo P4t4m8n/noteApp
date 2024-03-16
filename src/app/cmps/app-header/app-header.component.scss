@@ -6,9 +6,10 @@
 }
 
 :host {
+    position: relative;
     grid-area: 1/1/2/-1;
     width: 100%;
-    height: 72px;
+    height: 9vh;
     justify-content: space-between;
     padding: 8px;
     box-sizing: border-box;
@@ -19,9 +20,35 @@
 
 
     img {
-        // width: 100%;
-        height: 3rem;
+        display: block;
+        box-sizing: border-box;
+        width: auto;
+        height: 3.5em;
         aspect-ratio: 1;
         object-fit: scale-down;
+        border-radius: 50%;
+    }
+
+    .user {
+        img {
+            border: 1px solid;
+
+        }
+    }
+
+    .logo {
+        gap: 1em;
+        .mobile-nav-btn {
+            z-index: 9999;
+            width: 2rem;
+            border: 0;
+            object-fit: scale-down;
+            aspect-ratio: 1;
+            background: none;
+        }
+        button{
+            fill: rgb(95, 99, 104);
+        }
+
     }
 }

@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppHeader {
 
+
+  isSlideIn = false
+  
+  toggleSlideIn = () => {
+    this.isSlideIn = !this.isSlideIn
+  }
 }

@@ -1,5 +1,6 @@
 .note {
     position: relative;
+
     .img-con {
         display: flex;
         flex-wrap: wrap;
@@ -21,12 +22,13 @@
         position: absolute;
         background: inherit;
         border: none;
-        width: 1.5rem;
-        height: 1.5rem;
-        left: 87%;
+        width: 2em;
+        height: 2em;
+        left: 85%;
         top: 7%;
-        opacity: 0;
+        opacity: 1;
         z-index: 10;
+        padding: 0 0 2px 2px;
         cursor: pointer;
     }
 

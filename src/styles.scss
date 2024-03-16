@@ -63,49 +63,27 @@ a {
     }
 }
 
-// .modal-background {
-//     position: relative;
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     z-index: 10000;
-//     /* Adjust as necessary */
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     background: rgba(0, 0, 0, 0.5);
-//     opacity: 1 !important;
-//     width: 100px;
-//     height: 100px;
-//     background-color: red;
-//     overflow: visible;
-
-//     .modal-content {
-//         display: block;
-//         height: 100px;
-//         width: 100px;
-//         z-index: 999 !important;
-//         opacity: 1 !important;
-//         overflow: visible;
-
-//         .color-options {
-//             height: 100px;
-//             width: 100px;
-//             z-index: 999 !important;
-//             opacity: 1 !important;
-//             overflow: visible;
-
-//             .color-option {
-//                 height: 100px;
-//                 width: 100px;
-//                 z-index: 999 !important;
-//                 opacity: 1 !important;
-//                 overflow: visible;
+.filter {
+    display: flex;
+    height: 3rem;
+    background-color: rgb(241, 243, 244);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
 
 
-//             }
+    input {
+        background-color: inherit;
+        border: none;
 
-//         }
-//     }
-// }
+        &:focus-visible {
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 1px 1px 0 rgba(65, 69, 73, .3), 0 1px 3px 1px rgba(65, 69, 73, .15);
+
+            .filter {
+                background-color: #fff;
+            }
+        }
+    }
+}
