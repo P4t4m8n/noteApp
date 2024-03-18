@@ -15,7 +15,7 @@ export class NoteList implements OnInit,OnChanges {
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-      console.log("changes:", changes['notes'].currentValue)
+      // console.log("changes:", changes['notes'].currentValue)
       
   }
   trackByFn(index: number, note: any) {

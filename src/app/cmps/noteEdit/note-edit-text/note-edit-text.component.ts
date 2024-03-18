@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, inject } from '@angular/core';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NoteModel } from '../../../models/note.model';
@@ -8,11 +8,14 @@ import { NoteModel } from '../../../models/note.model';
   templateUrl: './note-edit-text.component.html',
   styleUrl: './note-edit-text.component.scss',
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class NoteEditText implements AfterViewInit, OnDestroy {
 
-  @Input() note!: NoteModel
+  note!: NoteModel
+  mode: 'edit' | 'new' = 'new'
   @Output() saveEvent = new EventEmitter()
   @ViewChild('textareaRef') textareaRef!: ElementRef<HTMLTextAreaElement>;
 
@@ -28,12 +31,17 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe(text => {
       this.note.txt = text
-      this.save()
+      if (this.mode === 'edit') this.save()
     })
     setTimeout(() => this.adjustHeight(this.textareaRef.nativeElement))
   }
   save() {
     this.saveEvent.emit(this.note)
+  }
+
+  onBlurNewNote() {
+    // if (this.mode === 'edit') return
+    this.save()
   }
 
   onTextChange(newText: string) {
@@ -44,7 +52,6 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
     if (eventTarget instanceof HTMLTextAreaElement) {
       const textarea = eventTarget
       textarea.style.height = 'fit-content'
-   
       textarea.style.height = `${textarea.scrollHeight}px`
     }
   }

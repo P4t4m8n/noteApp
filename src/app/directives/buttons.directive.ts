@@ -28,7 +28,6 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
   @Input() note!: NoteModel | Partial<NoteModel>
 
   ngOnInit(): void {
-    console.log(this.note)
   }
 
   @HostListener('click', ['$event'])

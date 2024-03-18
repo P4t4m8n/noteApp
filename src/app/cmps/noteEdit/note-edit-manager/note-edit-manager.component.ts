@@ -25,14 +25,14 @@ export class NoteEditManager implements OnInit, OnChanges {
   cdr = inject(ChangeDetectorRef)
 
   // @Input() propsNote: NoteModel | null = null
-  @Input() note!: Partial<NoteModel> | NoteModel
-  @ViewChild('noteEditContainer', { read: ViewContainerRef }) noteEditContainerRef!: ViewContainerRef
+  note: Partial<NoteModel> | NoteModel = this.noteService.getEmptyNote()
+  @ViewChild('noteEditContainer', { read: ViewContainerRef })
+  noteEditContainerRef!: ViewContainerRef
   @ViewChild('btns') noteBtns!: Buttons
 
   isModal = false
   destroySubject$ = new Subject()
-  // note!: Partial<NoteModel>
-  mode: 'edit' | 'new' | 'preview' = 'preview'
+  mode: 'edit' | 'new' = 'new'
 
   ngOnInit(): void {
     console.log(this.note)
@@ -40,45 +40,37 @@ export class NoteEditManager implements OnInit, OnChanges {
       .pipe(map(data =>
         data['note']))
       .subscribe(note => {
-        console.log("note:", note)
-        if (note) {
-          this.note = this.noteService.getEmptyNote()
-          this.mode = 'new'
-          if (note._id) {
-            this.note = note
-            this.isModal = true
-            this.mode = 'edit'
-          }
+        if (note && note._id) {
+          this.note = note
+          this.isModal = true
+          this.mode = 'edit'
+          console.log("note!!!:", this.note)
         }
       })
-
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.mode)
-    // this.note = { ...changes['propsNote'].currentValue }
     console.log(" this.note:", this.note)
-
   }
-
-  // ngDoCheck(): void {
-
-  // }
 
   ngAfterViewInit(): void {
     console.log('a')
+
     this.loadComponent()
-    this.cdr.detectChanges()
+    // this.cdr.detectChanges()
   }
 
   loadComponent() {
+    console.log("this.noteEditContainerRef:", this.noteEditContainerRef)
+
     this.noteEditContainerRef.clear()
     const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
     componentRef.instance.saveEvent.subscribe((note: NoteModel) => {
       this.saveNote(note)
     })
     componentRef.instance.note = this.note as NoteModel
+    componentRef.instance.mode = this.mode
   }
 
   setPinned(ev: Event) {
