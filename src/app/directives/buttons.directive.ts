@@ -47,6 +47,9 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
         case 'remove':
           this.#remove()
           break
+        case 'close':
+          this.#onBack()
+          break
         case 'test':
           this.#test()
           break

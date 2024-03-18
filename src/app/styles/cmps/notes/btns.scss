@@ -1,6 +1,7 @@
 .btns {
     container-type: inline-size;
     display: flex;
+    width: 100%;
     justify-content: space-around;
     height: 2.5em;
     padding-bottom: 2px;
@@ -33,7 +34,7 @@
 
 }
 
-@container (max-width: 500px) {
+@container (max-width: 450px) {
     .hide-on-small {
         display: none !important;
     }

@@ -4,7 +4,7 @@ import { NoteModel } from '../../models/note.model';
 @Component({
   selector: 'buttons',
   templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.scss']
+  styleUrls: ['./buttons.component.scss'],
 })
 export class Buttons implements OnInit {
 

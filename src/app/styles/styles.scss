@@ -16,17 +16,17 @@ body {
 
 }
 
-body:has(.modal) {
+// body:has(.modal) {
 
-    .modal,
-    .modal * {
-        pointer-events: all;
-    }
+//     .modal,
+//     .modal * {
+//         pointer-events: all;
+//     }
 
-    :not(.modal, .modal *) {
-        pointer-events: none;
-    }
-}
+//     :not(.modal, .modal *) {
+//         pointer-events: none;
+//     }
+// }
 
 body {
     margin: 0;

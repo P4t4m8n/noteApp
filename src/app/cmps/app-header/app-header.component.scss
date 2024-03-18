@@ -12,6 +12,7 @@
     height: 9vh;
     justify-content: space-between;
     padding: 8px;
+    padding-inline: 16px;
     box-sizing: border-box;
 
     h3 {
@@ -30,6 +31,7 @@
     }
 
     .user {
+        gap: 1em;
         img {
             border: 1px solid;
 
