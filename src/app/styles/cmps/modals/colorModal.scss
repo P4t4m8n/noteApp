@@ -1,0 +1,50 @@
+.color-options {
+    width: calc(1.75rem*8);
+    box-sizing: border-box;
+    height: 3rem;
+    border: 1px transparent;
+    display: flex;
+    background-color: white;
+    align-items: center;
+    z-index: 99999;
+    gap: .5rem;
+    border-radius: 12px;
+    padding-inline: 8px;
+    position: absolute;
+    bottom: -30%;
+    left: -11%;
+    // overflow-x: scroll;
+    // flex-wrap: wrap;
+    overflow: auto;
+    flex-shrink: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+    .color-option {
+        min-width: 1.75em;
+        height: 1.75em;
+        border-radius: 100vh;
+        border: 1px solid gray;
+
+        &:hover {
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    }
+
+
+}
+
+.active-dragging {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}

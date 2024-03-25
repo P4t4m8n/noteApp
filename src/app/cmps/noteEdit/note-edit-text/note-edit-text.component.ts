@@ -25,7 +25,6 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
   elRef = inject(ElementRef)
 
   ngAfterViewInit() {
-    console.log(this.note)
     this.textChange$.pipe(
       debounceTime(300),
       takeUntil(this.destroy$)
@@ -35,6 +34,7 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
     })
     setTimeout(() => this.adjustHeight(this.textareaRef.nativeElement))
   }
+
   save() {
     this.saveEvent.emit(this.note)
   }
@@ -51,8 +51,11 @@ export class NoteEditText implements AfterViewInit, OnDestroy {
   adjustHeight(eventTarget: EventTarget | null) {
     if (eventTarget instanceof HTMLTextAreaElement) {
       const textarea = eventTarget
-      textarea.style.height = 'fit-content'
-      textarea.style.height = `${textarea.scrollHeight}px`
+      if (this.note.txt === '') textarea.style.height = '1.1rem'
+      else {
+        textarea.style.height = 'auto'
+        textarea.style.height = `${textarea.scrollHeight}px`
+      }
     }
   }
 

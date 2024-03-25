@@ -3,12 +3,13 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button'
 import { ColorSvg } from '../../svgs/color-svg/color-svg.component';
 import { CommonModule } from '@angular/common';
+import { DragScrollDirective } from '../../directives/drag-scroll.directive';
 @Component({
   standalone: true,
   selector: 'color-modal',
   templateUrl: './color-modal.component.html',
   styleUrl: './color-modal.component.scss',
-  imports: [MatButtonModule, MatMenuModule,ColorSvg,CommonModule],
+  imports: [MatButtonModule, MatMenuModule, ColorSvg, CommonModule],
 })
 export class ColorModal {
   @Output() setColor = new EventEmitter<string>()
@@ -18,7 +19,7 @@ export class ColorModal {
     '#d7aefb', '#fdcfe8', '#e6c9a8', '#e8eaed']
 
   elRef = inject(ElementRef)
-  isOpen: boolean = true
+  isOpen: boolean = false
 
   selectColor(color: string): void {
     console.log("color:", color)
@@ -39,7 +40,7 @@ export class ColorModal {
   // }
 
   handleModal(): void {
-    this.isOpen = !this.isOpen 
+    this.isOpen = !this.isOpen
   }
 
 }

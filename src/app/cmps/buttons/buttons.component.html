@@ -2,7 +2,7 @@
   <button title="reminder" data-action="test">
     <reminder-svg></reminder-svg>
   </button>
-  <button title="color pick">
+  <button (click)="setColorOpen(true)" title="color pick" data-action="test">
     <color-svg></color-svg>
   </button>
   <button title="image upload" (click)="fileUpload.click()">
@@ -24,5 +24,9 @@
   <button title="redo" class="hide-on-small">
     <undo-svg style="transform: scaleX(-1);"></undo-svg>
   </button>
-  <button class="hide-on-small"title="close" data-action="close">Close</button>
+  <button class="hide-on-small" title="close" data-action="close">Close</button>
+</div>
+
+<div class="color-options" appDragScroll modal (clickOutside)="setColorOpen(false)" *ngIf="isColorOpen">
+  <button *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" data-action="color"></button>
 </div>

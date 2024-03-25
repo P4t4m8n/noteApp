@@ -12,7 +12,6 @@ export class ModalDirective implements OnInit {
         setTimeout(() => {
             this.onClick = (ev: MouseEvent) => {
                 const isClickedInside = this.el.nativeElement.contains(ev.target)
-                console.log("ev.target:", ev.target)
                 if (!isClickedInside) this.clickOutside.emit()
             }
 

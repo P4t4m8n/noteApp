@@ -59,7 +59,7 @@ export class NoteService {
   getEmptyNote(): Partial<NoteModel> {
     return {
       createdAt: Date.now(),
-      bgc: 'ffffff',
+      bgc: '#ffffff',
       txt: '',
       imgs: [],
       labels: [],

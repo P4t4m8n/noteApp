@@ -40,7 +40,7 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
     }
 
     if (target && target.dataset['action']) {
-      console.log("Action:", target.dataset['action'])//remove in prod
+      // console.log("Action:", target.dataset['action'])//remove in prod
 
       switch (target.dataset['action']) {
         case 'remove':
@@ -49,19 +49,22 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
         case 'close':
           this.#onBack()
           break
+        case 'color':
+          this.#selectColor( target.style.backgroundColor)
+          break
         case 'test':
           this.#test()
           break
         default:
-          console.log('Action not recognized.')//remove in prod
+          // console.log('Action not recognized.')//remove in prod
       }
     } else {
-      console.log('Clicked element does not have a data-action attribute.')//remove in prod
+      // console.log('Clicked element does not have a data-action attribute.')//remove in prod
     }
   }
 
   #test(): void {
-    console.log(this.note)
+    // console.log(this.note)
   }
 
   #remove() {

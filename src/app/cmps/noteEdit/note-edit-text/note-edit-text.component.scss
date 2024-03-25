@@ -1,22 +1,5 @@
-// :host {
-//     background-color: inherit;
-//     width: 100%;
-    
-//     textarea {
-//         padding: 2em;
-//         font-family: inherit;
-//         font-size:1rem;
-//         border: none;
-//         background-color: inherit;
-//         width: 100%;
-//         overflow-y: hidden;
-//         resize: none;
-//         height: auto;
-//         box-sizing: border-box;
-//         &:focus{
-//             outline: none;
-    
-//         }
-//     }
-
-// }
+:host {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}

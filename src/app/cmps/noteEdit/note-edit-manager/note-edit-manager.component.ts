@@ -35,7 +35,6 @@ export class NoteEditManager implements OnInit, OnChanges {
   mode: 'edit' | 'new' = 'new'
 
   ngOnInit(): void {
-    console.log(this.note)
     this.route.data
       .pipe(map(data =>
         data['note']))
@@ -44,26 +43,23 @@ export class NoteEditManager implements OnInit, OnChanges {
           this.note = note
           this.isModal = true
           this.mode = 'edit'
-          console.log("note!!!:", this.note)
         }
       })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.mode)
-    console.log(" this.note:", this.note)
+    // console.log(this.mode)
+    // console.log(" this.note:", this.note)
   }
 
   ngAfterViewInit(): void {
-    console.log('a')
+    // console.log('a')
 
     this.loadComponent()
     // this.cdr.detectChanges()
   }
 
   loadComponent() {
-    console.log("this.noteEditContainerRef:", this.noteEditContainerRef)
-
     this.noteEditContainerRef.clear()
     const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
     componentRef.instance.saveEvent.subscribe((note: NoteModel) => {

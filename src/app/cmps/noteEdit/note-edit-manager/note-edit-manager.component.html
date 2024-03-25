@@ -7,7 +7,7 @@
   <buttons (note)="note" #btns></buttons>
 </section>
 
-<section *ngIf="!isModal" class="newNote note" [style.background-color]="note.bgc">
+<section *ngIf="!isModal" class="new-note note" [style.background-color]="note.bgc">
   <button [ngClass]="{pinned:note.isPinned}" class="pinned-btn" (click)="setPinned($event)">
     <pinned-svg *ngIf="!note.isPinned"></pinned-svg>
     <pinned-full-svg *ngIf="note.isPinned"></pinned-full-svg>

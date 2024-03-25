@@ -2,18 +2,6 @@
   <color-svg></color-svg>
 </button>
 
-<div modal (clickOutside)="handleModal()" *ngIf="isOpen" class="modal-background" >
-  <div class="modal-content" >
-    <div class="color-options">
-      <div *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" (click)="selectColor(color)"></div>
-    </div>
-  </div>
+<div appDragScroll modal (clickOutside)="handleModal()" *ngIf="isOpen" class="color-options">
+  <button *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': 'red'}" (click)="selectColor(color)"></button>
 </div>
-
-<!-- 
-<button mat-button [matMenuTriggerFor]="menu">
-  <color-svg></color-svg>
-</button>
-<mat-menu #menu="matMenu" #beforeMenu="matMenu" xPosition="after">
-  <button *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': color}" (click)="selectColor(color)"></button>
-</mat-menu> -->
