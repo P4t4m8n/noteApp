@@ -1,7 +1,0 @@
-<button (click)="handleModal()">
-  <color-svg></color-svg>
-</button>
-
-<div appDragScroll modal (clickOutside)="handleModal()" *ngIf="isOpen" class="color-options">
-  <button *ngFor="let color of colors" class="color-option" [ngStyle]="{'background-color': 'red'}" (click)="selectColor(color)"></button>
-</div>

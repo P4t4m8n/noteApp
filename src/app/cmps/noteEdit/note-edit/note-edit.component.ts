@@ -1,18 +1,18 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NoteModel } from '../../../models/note.model';
 
 @Component({
-  selector: 'note-edit-text',
-  templateUrl: './note-edit-text.component.html',
-  styleUrl: './note-edit-text.component.scss',
+  selector: 'note-edit',
+  templateUrl: './note-edit.component.html',
+  styleUrl: './note-edit.component.scss',
   standalone: true,
   imports: [FormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class NoteEditText implements AfterViewInit, OnDestroy {
+export class NoteEdit implements AfterViewInit, OnDestroy {
 
   note!: NoteModel
   mode: 'edit' | 'new' = 'new'

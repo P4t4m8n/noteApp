@@ -31,14 +31,13 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
   }
 
   @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    let target = event.target as HTMLElement
-
+  onClick(ev: MouseEvent): void {
+    let target = ev.target as HTMLElement
+    ev.stopPropagation()
     // Going up the DOM to find the dataset stop at host lvl
-    while (target && target !== event.currentTarget && !target.dataset['action']) {
+    while (target && target !== ev.currentTarget && !target.dataset['action']) {
       target = target.parentElement as HTMLElement
     }
-
     if (target && target.dataset['action']) {
       // console.log("Action:", target.dataset['action'])//remove in prod
 
@@ -50,13 +49,13 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
           this.#onBack()
           break
         case 'color':
-          this.#selectColor( target.style.backgroundColor)
+          this.#selectColor(target.style.backgroundColor)
           break
         case 'test':
           this.#test()
           break
         default:
-          // console.log('Action not recognized.')//remove in prod
+        // console.log('Action not recognized.')//remove in prod
       }
     } else {
       // console.log('Clicked element does not have a data-action attribute.')//remove in prod
@@ -69,6 +68,12 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
 
   #remove() {
     if (!this.note || !this.note._id) return
+    if (this.note.mode !== "trash") {
+      this.note.mode = "trash"
+      this.#saveNote(this.note)
+      return 
+      
+    }
     this.noteService.remove(this.note._id)
       .pipe(
         tap(() => {
@@ -78,7 +83,6 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
       )
       .subscribe({
         next: noteId => console.log('removed', noteId),
-
         error: err => console.log('err:', err)
       })
   }
@@ -89,6 +93,7 @@ export class NoteButtonsDirective implements OnInit, OnDestroy {
   }
 
   #saveNote(note: NoteModel | Partial<NoteModel>) {
+    console.log("note:", note)
     this.noteService.save(note)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({

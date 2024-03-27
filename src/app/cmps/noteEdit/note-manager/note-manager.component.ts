@@ -1,20 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef, ViewEncapsulation, inject } from '@angular/core';
 import { NoteModel } from '../../../models/note.model';
 import { NoteService } from '../../../services/note.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, map, take, takeUntil, tap } from 'rxjs';
-import { NoteEditText } from '../note-edit-text/note-edit-text.component';
+import { NoteEdit } from '../note-edit/note-edit.component';
 import { Buttons } from '../../buttons/buttons.component';
 import { ImageUploadService } from '../../../services/image-upload.service';
 
 @Component({
-  selector: 'note-edit-manager',
-  templateUrl: './note-edit-manager.component.html',
-  styleUrl: './note-edit-manager.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'note-manager',
+  templateUrl: './note-manager.component.html',
+  styleUrl: './note-manager.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+
 
 })
-export class NoteEditManager implements OnInit, OnChanges {
+export class NoteManager implements OnInit {
 
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -24,7 +25,6 @@ export class NoteEditManager implements OnInit, OnChanges {
   imgUploadService = inject(ImageUploadService)
   cdr = inject(ChangeDetectorRef)
 
-  // @Input() propsNote: NoteModel | null = null
   note: Partial<NoteModel> | NoteModel = this.noteService.getEmptyNote()
   @ViewChild('noteEditContainer', { read: ViewContainerRef })
   noteEditContainerRef!: ViewContainerRef
@@ -47,10 +47,7 @@ export class NoteEditManager implements OnInit, OnChanges {
       })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(this.mode)
-    // console.log(" this.note:", this.note)
-  }
+  
 
   ngAfterViewInit(): void {
     // console.log('a')
@@ -61,7 +58,7 @@ export class NoteEditManager implements OnInit, OnChanges {
 
   loadComponent() {
     this.noteEditContainerRef.clear()
-    const componentRef = this.noteEditContainerRef.createComponent(NoteEditText)
+    const componentRef = this.noteEditContainerRef.createComponent(NoteEdit)
     componentRef.instance.saveEvent.subscribe((note: NoteModel) => {
       this.saveNote(note)
     })
@@ -71,21 +68,26 @@ export class NoteEditManager implements OnInit, OnChanges {
 
   setPinned(ev: Event) {
     ev.stopPropagation()
+
     if (!this.note) return
+
     this.note.isPinned = !this.note.isPinned
     this.saveNote(this.note)
     this.cdr.detectChanges()
   }
 
   setColor(color: string) {
+
     if (!this.note) return
 
     this.note.bgc = color
+
     this.saveNote(this.note)
     this.cdr.markForCheck()
   }
 
   saveNote(note: NoteModel | Partial<NoteModel>) {
+
     this.noteService.save(note)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
@@ -101,7 +103,6 @@ export class NoteEditManager implements OnInit, OnChanges {
       const file = target.files[0]
       this.imgUploadService.uploadImg(file)
         .subscribe(link => {
-          console.log("link:", link)
           this.note?.imgs?.push(link)
           this.saveNote(this.note as Partial<NoteModel>)
           this.cdr.markForCheck()

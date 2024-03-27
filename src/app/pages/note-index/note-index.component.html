@@ -1,4 +1,3 @@
-<note-edit-manager></note-edit-manager>
 
-<note-list [notes]="notes|sortBy:'isPinned'"></note-list>
+<note-list *ngIf="notes$ | async as notes" [notes]="notes | sortBy:'isPinned'"></note-list>
 <router-outlet></router-outlet>

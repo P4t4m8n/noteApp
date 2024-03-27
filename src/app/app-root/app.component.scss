@@ -1,7 +1,8 @@
 :host {
     display: grid;
-    grid-template-rows: 5% 95%;
-    grid-template-columns: minmax(48px ,200px) 1fr;
+    grid-template-rows: 5% 10% 80%;
+    grid-template-columns: minmax(2.5em, 20svw) 1fr;
+
     height: 100%;
     row-gap: 2em;
     column-gap: 1em;

@@ -1,1 +1,0 @@
-<textarea #textareaRef class="text-area" (blur)="onBlurNewNote()" matInput [(ngModel)]="note.txt" [ngModelOptions]="{standalone: true}" placeholder="Take a note..." (input)="adjustHeight($event.target )" (ngModelChange)="onTextChange($event)"></textarea>

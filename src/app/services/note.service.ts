@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NoteModel } from '../models/note.model';
 import { storageService } from './async-storage.service';
-import { BehaviorSubject, Observable, catchError, from, map, retry, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, from, retry, tap, throwError } from 'rxjs';
 import { UtilService } from './util.service';
+import { NoteFilterModal } from '../models/noteFIlter.modal';
 
 const NOTE_DB = 'note'
 export const TODO = 'todo'
@@ -11,7 +12,6 @@ export const TXT = 'txt'
   providedIn: 'root'
 })
 export class NoteService {
-
 
   constructor() {
     let notes = JSON.parse(localStorage.getItem(NOTE_DB) || 'null')
@@ -24,10 +24,16 @@ export class NoteService {
   #_notes$ = new BehaviorSubject<NoteModel[]>([])
   public notes$ = this.#_notes$.asObservable()
 
+  #_filterBy$ = new BehaviorSubject<NoteFilterModal>({ mode: 'note' });
+  public filterBy$ = this.#_filterBy$.asObservable()
+
   query() {
     return from(storageService.query<NoteModel>(NOTE_DB))
       .pipe(
-        tap(sortedNotes => this.#_notes$.next(sortedNotes)),
+        tap(notes => {
+          const _notes = this.#filterItems(notes)
+          this.#_notes$.next(_notes)
+        }),
         retry(1),
         catchError(this.#handleError)
       )
@@ -38,7 +44,6 @@ export class NoteService {
   }
 
   save(note: Partial<NoteModel> | NoteModel): Observable<NoteModel> {
-
     return note._id ? this.#edit(note as NoteModel) : this.#add(note)
   }
 
@@ -56,6 +61,11 @@ export class NoteService {
         catchError(this.#handleError))
   }
 
+  setFilter(filterBy: NoteFilterModal) {
+    this.#_filterBy$.next(filterBy)
+    this.query().subscribe()
+  }
+
   getEmptyNote(): Partial<NoteModel> {
     return {
       createdAt: Date.now(),
@@ -63,7 +73,8 @@ export class NoteService {
       txt: '',
       imgs: [],
       labels: [],
-      isPinned: false
+      isPinned: false,
+      mode: "note"
 
     }
   }
@@ -72,8 +83,9 @@ export class NoteService {
     return from(storageService.post(NOTE_DB, note as NoteModel))
       .pipe(
         tap((newNote: NoteModel) => {
-          let notes = [...this.#_notes$.value, newNote]
-          this.#_notes$.next(notes)
+          let _notes = [...this.#_notes$.value, newNote]
+          const _fIlterNotes = this.#filterItems(_notes)
+          this.#_notes$.next(_fIlterNotes)
         }),
         retry(1),
         catchError(this.#handleError))
@@ -83,11 +95,11 @@ export class NoteService {
     return from(storageService.put(NOTE_DB, note))
       .pipe(
         tap(updateNote => {
-          let notes = this.#_notes$.value
-          const idx = notes.findIndex(_note => _note._id === updateNote._id)
-          notes.splice(idx, 1, updateNote)
-
-          this.#_notes$.next(notes)
+          let _notes = this.#_notes$.value
+          const idx = _notes.findIndex(_note => _note._id === updateNote._id)
+          _notes.splice(idx, 1, updateNote)
+          const _fIlterNotes = this.#filterItems(_notes)
+          this.#_notes$.next(_fIlterNotes)
           return updateNote
         }),
         retry(1),
@@ -105,11 +117,11 @@ export class NoteService {
     ({
       _id: UtilService.makeId(), txt: UtilService.makeLorem(),
       createdAt: Date.now(), type: TXT, bgc: UtilService.getAllowedColor(),
-      imgs: [], labels: [], isPinned: false
+      imgs: [], labels: [], isPinned: false, mode: 'note'
     }))
     return demoNotes
   }
-  
+
   #sortNotes(notes: NoteModel[]): NoteModel[] {
     notes.sort((a, b) => {
       return (b.isPinned === a.isPinned) ? 0 : b.isPinned ? 1 : -1;
@@ -117,6 +129,8 @@ export class NoteService {
     return notes
   }
 
-
-
+  #filterItems(items: NoteModel[]): NoteModel[] {
+    const filterBy = this.#_filterBy$.value
+    return items.filter((note) => note.mode === filterBy.mode)
+  }
 }
